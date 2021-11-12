@@ -12,4 +12,4 @@ export const store = createStore(rootReducer, enhancer);
 
 sagaMiddleware.run(rootSaga);
 
-module.exports = store;
+// module.exports = store;
