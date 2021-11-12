@@ -10,8 +10,8 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 // component dependencies
-import Dialog from "../Dialog";
 import Snackbar from "../Snackbar";
+import Login from "../../containers/Login/Loadable";
 
 export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
@@ -48,11 +48,9 @@ export default function MenuAppBar() {
             Register
           </Button>
           {dlgLoginOpen && (
-            <Dialog
+            <Login
               opendialog={dlgLoginOpen}
               closedialog={() => setDlgLoginOpen(false)}
-              message="Login Failed!!"
-              title="Error"
             />
           )}
 
