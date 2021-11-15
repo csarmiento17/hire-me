@@ -8,28 +8,39 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import { LOGIN } from '../../utils/mutations';
+import { REGISTER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 
-export default function Login({
+export default function Register({
   opendialog,
   closedialog
 }) {
-  const [formState, setFormState] = useState({ email: '', password: '' });
-  const [login, { error }] = useMutation(LOGIN);
+  const [formState, setFormState] = useState({ username:'', email: '', password: '' });
+  const [register, { error }] = useMutation(REGISTER);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log('signup')
+
     try {
-      const mutationResponse = await login({
-        variables: { email: formState.email, password: formState.password },
-      });
-      const token = mutationResponse.data.login.token;
-      Auth.login(token);
+      console.log('signup try')
+
+      const { data } = await register({
+        variables: { 
+          username: formState.username,
+          email: formState.email,
+          password: formState.password,
+         },
+      });    
+      console.log('signup 2', formState)
+
+      // const token = mutationResponse.data.register.token;
+      Auth.login(data.register.token);
     } catch (e) {
-      console.log(e);
-    }
-  };
+      console.error(e);
+    };
+    handleClose();
+  }
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -37,6 +48,7 @@ export default function Login({
       ...formState,
       [name]: value,
     });
+    console.log(value)
   };
 
   const handleClose = (event, reason) => {
@@ -47,11 +59,12 @@ export default function Login({
   };
 
   return (
+    <form >
     <Grid container>
       <Dialog
         open={opendialog}
         onClose={closedialog}
-      >
+      >        
         <DialogTitle
           id="alert-dialog-title"
           sx={{
@@ -60,16 +73,24 @@ export default function Login({
             color: "#fff",
           }}
         >
-          Login
+          Register
         </DialogTitle>
         <DialogContent 
           sx={{ '& .MuiTextField-root': { marginTop: 2 }, marginTop: 2 }}
         >
-          <form onSubmit={handleFormSubmit}>
           <TextField
             autoFocus
             margin="dense"
-            id="loginEmail"
+            id="username"
+            label="Username"
+            type="username"
+            fullWidth
+            variant="outlined"
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            id="email"
             label="Email Address"
             type="email"
             fullWidth
@@ -78,24 +99,24 @@ export default function Login({
           />
           <TextField
             margin="dense"
-            id="loginPassword"
+            id="password"
             label="Password"
             type="password"
             fullWidth
             variant="outlined"
             onChange={handleChange}
           />
-          </form>
         </DialogContent>
         <DialogActions sx={{ marginBottom: 3, px: 3 }}>
-          <Button type="submit" onClick={handleClose} variant="contained" fullWidth size='large' >Login</Button>
+          <Button type="submit" onClick={handleFormSubmit} variant="contained" fullWidth size='large' >Register</Button>
         </DialogActions>
       </Dialog>
     </Grid>
+    </form>
   );
 }
 
-Login.propTypes = {
+Register.propTypes = {
   openDialog: PropTypes.bool,
   closeDialog: PropTypes.any
 };
