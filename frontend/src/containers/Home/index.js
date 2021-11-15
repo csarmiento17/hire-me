@@ -2,7 +2,6 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import Signup from "../Signup";
 
 import React, { useEffect, useState } from "react";
 
@@ -18,7 +17,6 @@ const Home = () => {
     <>
       <main>
         <Grid container spacing={2} sx={{justifyContent: 'center', marginTop: '1em'}}>
-        <Signup />
             <Box
               component="form"
               sx={{

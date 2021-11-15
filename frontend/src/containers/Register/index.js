@@ -20,11 +20,8 @@ export default function Register({
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log('signup')
 
     try {
-      console.log('signup try')
-
       const { data } = await register({
         variables: { 
           username: formState.username,
@@ -32,7 +29,6 @@ export default function Register({
           password: formState.password,
          },
       });    
-      console.log('signup 2', formState)
 
       // const token = mutationResponse.data.register.token;
       Auth.login(data.register.token);
@@ -48,7 +44,6 @@ export default function Register({
       ...formState,
       [name]: value,
     });
-    console.log(value)
   };
 
   const handleClose = (event, reason) => {
@@ -82,8 +77,9 @@ export default function Register({
             autoFocus
             margin="dense"
             id="username"
+            name="username"
             label="Username"
-            type="username"
+            type="text"
             fullWidth
             variant="outlined"
             onChange={handleChange}
@@ -91,6 +87,7 @@ export default function Register({
           <TextField
             margin="dense"
             id="email"
+            name="email"
             label="Email Address"
             type="email"
             fullWidth
@@ -100,6 +97,7 @@ export default function Register({
           <TextField
             margin="dense"
             id="password"
+            name="password"
             label="Password"
             type="password"
             fullWidth
