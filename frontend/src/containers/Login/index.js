@@ -29,6 +29,7 @@ export default function Login({
     } catch (e) {
       console.log(e);
     }
+    handleClose();
   };
 
   const handleChange = (event) => {
@@ -47,6 +48,7 @@ export default function Login({
   };
 
   return (
+    <form>
     <Grid container>
       <Dialog
         open={opendialog}
@@ -65,11 +67,11 @@ export default function Login({
         <DialogContent 
           sx={{ '& .MuiTextField-root': { marginTop: 2 }, marginTop: 2 }}
         >
-          <form onSubmit={handleFormSubmit}>
           <TextField
             autoFocus
             margin="dense"
             id="loginEmail"
+            name="email"
             label="Email Address"
             type="email"
             fullWidth
@@ -79,19 +81,20 @@ export default function Login({
           <TextField
             margin="dense"
             id="loginPassword"
+            name="password"
             label="Password"
             type="password"
             fullWidth
             variant="outlined"
             onChange={handleChange}
           />
-          </form>
         </DialogContent>
         <DialogActions sx={{ marginBottom: 3, px: 3 }}>
-          <Button type="submit" onClick={handleClose} variant="contained" fullWidth size='large' >Login</Button>
+          <Button type="submit" onClick={handleFormSubmit} variant="contained" fullWidth size='large' >Login</Button>
         </DialogActions>
       </Dialog>
     </Grid>
+    </form>
   );
 }
 
