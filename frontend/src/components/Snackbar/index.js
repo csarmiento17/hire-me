@@ -34,6 +34,7 @@ export default function Snackbars({ snackopen, snackclose, message }) {
         onClose={handleClose}
         message={message}
         action={action}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       />
     </div>
   );

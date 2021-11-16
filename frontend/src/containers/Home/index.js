@@ -55,7 +55,7 @@ const Home = () => {
               height: "70vh",
             }}
           >
-            <Map places={data} />
+            {/*<Map places={data} />*/}
           </Grid>
         </Grid>
       </main>
