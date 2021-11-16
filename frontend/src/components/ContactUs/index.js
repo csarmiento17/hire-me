@@ -64,7 +64,6 @@ const ContactUs = () => {
       <Grid item xs={6}>
         <form ref={form} onSubmit={sendEmail}>
           <TextField
-            autoFocus
             margin="dense"
             id="name"
             name="name"
@@ -75,7 +74,6 @@ const ContactUs = () => {
             onChange={handleChange}
           />
           <TextField
-            autoFocus
             margin="dense"
             id="email"
             name="email"
@@ -86,7 +84,6 @@ const ContactUs = () => {
             onChange={handleChange}
           />
           <TextField
-            autoFocus
             margin="dense"
             id="phone"
             name="phone"

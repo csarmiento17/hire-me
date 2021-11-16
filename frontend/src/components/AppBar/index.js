@@ -51,6 +51,7 @@ export default function MenuAppBar() {
             Register
           </Button>
           <Link to="/contact-us">CONTACT US</Link>
+
           {dlgLoginOpen && (
             <Login
               opendialog={dlgLoginOpen}
