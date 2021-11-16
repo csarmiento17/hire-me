@@ -12,11 +12,13 @@ import Menu from "@mui/material/Menu";
 // component dependencies
 import Snackbar from "../Snackbar";
 import Login from "../../containers/Login/Loadable";
+import ErrorDialog from "../Dialog";
 
 export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [dlgLoginOpen, setDlgLoginOpen] = useState(false);
+  const [errDlg, setErrDlg] = useState(false);
   const [snackOpen, setSnackOpen] = useState(false);
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -32,6 +34,10 @@ export default function MenuAppBar() {
 
   const handleRegister = () => {
     setSnackOpen(true);
+  };
+
+  const handleErrorDialog = () => {
+    setErrDlg(true);
   };
 
   return (
@@ -54,6 +60,14 @@ export default function MenuAppBar() {
             />
           )}
 
+          {errDlg && (
+            <ErrorDialog
+              opendialog={errDlg}
+              closedialog={() => setErrDlg(false)}
+              message="There's an error in your app"
+              title="Error"
+            />
+          )}
           {snackOpen && (
             <Snackbar
               snackopen={snackOpen}
@@ -78,18 +92,18 @@ export default function MenuAppBar() {
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
-                  vertical: "top",
+                  vertical: "bottom",
                   horizontal: "right",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: "top",
+                  vertical: "bottom",
                   horizontal: "right",
                 }}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleErrorDialog}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
               </Menu>
             </div>
