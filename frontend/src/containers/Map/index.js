@@ -1,21 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import GoogleMapReact from "google-map-react";
 import Marker from "./LocationMarker";
-import { Typography, Menu, Toolbar, IconButton } from "@mui/material";
 import LocationInfo from "./LocationInfo";
 
 const Map = ({ center, zoom, places, setChildClicked }) => {
-  const [anchorElPinInfo, setAnchorElPinInfo] = React.useState(null);
   const [locInfo, setLocInfo] = useState(null);
-  const open = Boolean(anchorElPinInfo);
+
   const handlePinInfo = (e, item) => {
     e.preventDefault();
-    setAnchorElPinInfo(e.currentTarget);
     setLocInfo(item);
-  };
-  const handleClose = () => {
-    setAnchorElPinInfo(null);
-    setLocInfo(null);
   };
 
   const markers = places.map((item, id) => {
