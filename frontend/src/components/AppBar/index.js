@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 
 import Box from "@mui/material/Box";
@@ -49,6 +50,7 @@ export default function MenuAppBar() {
           <Button variant="h6" component="div" onClick={handleRegister}>
             Register
           </Button>
+          <Link to="/contact-us">CONTACT US</Link>
           {dlgLoginOpen && (
             <Login
               opendialog={dlgLoginOpen}

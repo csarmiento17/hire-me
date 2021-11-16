@@ -8,8 +8,6 @@ body {
   background-color: rgb(255, 255, 255) !important;
 }
 
-.map {
-  width: 60vw;
-  height: 50vh;
-  position: relative;
+a {
+  text-decoration: none;
 }
