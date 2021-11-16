@@ -1,27 +1,43 @@
 import React, { useState, useEffect } from "react";
 import GoogleMapReact from "google-map-react";
 import Marker from "./LocationMarker";
-const Map = ({ center, zoom }) => {
-  const [data, setData] = useState([
-    { company: "Accenture", coordinates: [43.650982, -79.384993] },
-    { company: "Google", coordinates: [43.649072, -79.384783] },
-    { company: "IBM", coordinates: [43.66455, -79.382963] },
-    { company: "Amazon", coordinates: [43.666909, -79.374212] },
-    { company: "Facebook", coordinates: [43.65595, -79.401264] },
-  ]);
+import { Typography, Menu, Toolbar, IconButton } from "@mui/material";
+import LocationInfo from "./LocationInfo";
 
-  const markers = data.map((item) => {
-    return <Marker lat={item.coordinates[0]} lng={item.coordinates[1]} />;
+const Map = ({ center, zoom, places, setChildClicked }) => {
+  const [anchorElPinInfo, setAnchorElPinInfo] = React.useState(null);
+  const [locInfo, setLocInfo] = useState(null);
+  const open = Boolean(anchorElPinInfo);
+  const handlePinInfo = (e, item) => {
+    e.preventDefault();
+    setAnchorElPinInfo(e.currentTarget);
+    setLocInfo(item);
+  };
+  const handleClose = () => {
+    setAnchorElPinInfo(null);
+    setLocInfo(null);
+  };
+
+  const markers = places.map((item, id) => {
+    return (
+      <Marker
+        key={id}
+        lat={item.coordinates[0]}
+        lng={item.coordinates[1]}
+        onClick={(e) => handlePinInfo(e, item)}
+      />
+    );
   });
   return (
     <>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyD0eicUFmWGorXvJNsYnCApFQWIbCrbz8c" }}
+        bootstrapURLKeys={{ key: process.env.GOOGLE_MAP_API_KEY }}
         defaultCenter={center}
         defaultZoom={zoom}
       >
         {markers}
       </GoogleMapReact>
+      {locInfo && <LocationInfo info={locInfo} />}
     </>
   );
 };

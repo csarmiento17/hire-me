@@ -3,14 +3,17 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Map from "../Map";
 
 const Home = () => {
-  const [values, setValues] = React.useState({
-    searchParameter: "",
-    location: "",
-  });
+  const [data] = useState([
+    { company: "Accenture", coordinates: [43.650982, -79.384993] },
+    { company: "Google", coordinates: [43.649072, -79.384783] },
+    { company: "IBM", coordinates: [43.66455, -79.382963] },
+    { company: "Amazon", coordinates: [43.666909, -79.374212] },
+    { company: "Facebook", coordinates: [43.65595, -79.401264] },
+  ]);
 
   return (
     <>
@@ -40,11 +43,19 @@ const Home = () => {
           </Box>
         </Grid>
         <Grid container style={{ marginTop: "30px" }}>
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={4}>
             Job Results
           </Grid>
-          <Grid item xs={8} style={{ width: "60vw", height: "70vh" }}>
-            <Map />
+          <Grid
+            item
+            xs={8}
+            sx={{
+              display: { xs: "none", sm: "block" },
+              width: "60vw",
+              height: "70vh",
+            }}
+          >
+            <Map places={data} />
           </Grid>
         </Grid>
       </main>

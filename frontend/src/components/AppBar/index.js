@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 
 import Box from "@mui/material/Box";
@@ -15,7 +15,7 @@ import Login from "../../containers/Login/Loadable";
 import Register from "../../containers/Register";
 
 export default function MenuAppBar() {
-  const [auth, setAuth] = React.useState(true);
+  const [auth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [dlgLoginOpen, setDlgLoginOpen] = useState(false);
   const [dlgRegisterOpen, setDlgRegisterOpen] = useState(false);
@@ -34,10 +34,6 @@ export default function MenuAppBar() {
 
   const handleRegister = () => {
     setDlgRegisterOpen(true);
-  };
-
-  const handleErrorDialog = () => {
-    setErrDlg(true);
   };
 
   return (
@@ -88,19 +84,11 @@ export default function MenuAppBar() {
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
                 keepMounted
-                transformOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleErrorDialog}>Profile</MenuItem>
+                <MenuItem>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
               </Menu>
             </div>

@@ -1,14 +1,14 @@
 import React from "react";
 import RoomIcon from "@mui/icons-material/Room";
-import { IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 
 const Marker = ({ lat, lng, onClick }) => {
   return (
-    <div className="location-marker" onClick={onClick}>
-      <IconButton>
+    <>
+      <IconButton onClick={onClick}>
         <RoomIcon style={{ color: "red" }} />
       </IconButton>
-    </div>
+    </>
   );
 };
 
