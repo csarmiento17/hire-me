@@ -12,11 +12,13 @@ import Menu from "@mui/material/Menu";
 // component dependencies
 import Snackbar from "../Snackbar";
 import Login from "../../containers/Login/Loadable";
+import Register from "../../containers/Register";
 
 export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [dlgLoginOpen, setDlgLoginOpen] = useState(false);
+  const [dlgRegisterOpen, setDlgRegisterOpen] = useState(false);
   const [snackOpen, setSnackOpen] = useState(false);
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -31,7 +33,7 @@ export default function MenuAppBar() {
   };
 
   const handleRegister = () => {
-    setSnackOpen(true);
+    setDlgRegisterOpen(true);
   };
 
   return (
@@ -53,7 +55,12 @@ export default function MenuAppBar() {
               closedialog={() => setDlgLoginOpen(false)}
             />
           )}
-
+          {dlgRegisterOpen && (
+            <Register
+              opendialog={dlgRegisterOpen}
+              closedialog={() => setDlgRegisterOpen(false)}
+            />
+          )}
           {snackOpen && (
             <Snackbar
               snackopen={snackOpen}
