@@ -12,13 +12,13 @@ import Menu from "@mui/material/Menu";
 // component dependencies
 import Snackbar from "../Snackbar";
 import Login from "../../containers/Login/Loadable";
-import ErrorDialog from "../Dialog";
+import Register from "../../containers/Register";
 
 export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [dlgLoginOpen, setDlgLoginOpen] = useState(false);
-  const [errDlg, setErrDlg] = useState(false);
+  const [dlgRegisterOpen, setDlgRegisterOpen] = useState(false);
   const [snackOpen, setSnackOpen] = useState(false);
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -33,7 +33,7 @@ export default function MenuAppBar() {
   };
 
   const handleRegister = () => {
-    setSnackOpen(true);
+    setDlgRegisterOpen(true);
   };
 
   const handleErrorDialog = () => {
@@ -59,13 +59,10 @@ export default function MenuAppBar() {
               closedialog={() => setDlgLoginOpen(false)}
             />
           )}
-
-          {errDlg && (
-            <ErrorDialog
-              opendialog={errDlg}
-              closedialog={() => setErrDlg(false)}
-              message="There's an error in your app"
-              title="Error"
+          {dlgRegisterOpen && (
+            <Register
+              opendialog={dlgRegisterOpen}
+              closedialog={() => setDlgRegisterOpen(false)}
             />
           )}
           {snackOpen && (
