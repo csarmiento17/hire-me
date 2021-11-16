@@ -13,7 +13,7 @@ const JobSchema = new Schema({
     type: String,
     required: true,
   },
-  location: {
+  address: {
     type: String,
     required: true,
   },
@@ -21,6 +21,12 @@ const JobSchema = new Schema({
     type: [String],
     required: true,
   },
+
+  coordinates: {
+    type: [String],
+  },
 });
 
-module.exports = JobSchema;
+const Job = model("Job", JobSchema);
+
+module.exports = Job;
