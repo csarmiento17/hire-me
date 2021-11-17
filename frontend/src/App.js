@@ -1,5 +1,6 @@
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
 import Home from "./containers/Home/Loadable";
 import MenuAppBar from "./components/AppBar";
 import {
@@ -9,8 +10,9 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import ContactUs from "./components/ContactUs";
+import ContactUs from "./containers/ContactUs/Loadable";
 import PageNotFound from "./components/NotFound";
+import { Container } from "@mui/material";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -35,14 +37,14 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <Switch>
-          <Container maxWidth="xl">
-            <MenuAppBar />
-            <Route exact path="/" component={Home}></Route>
-            <Route exact path="/contact-us" component={ContactUs}></Route>
-            <Route path="*" component={PageNotFound} />
-          </Container>
-        </Switch>
+        <div>
+          <MenuAppBar />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/contact-us" component={ContactUs} />
+            <Route component={PageNotFound} />
+          </Switch>
+        </div>
       </Router>
     </ApolloProvider>
   );
