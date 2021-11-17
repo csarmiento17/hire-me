@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
+import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
 import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import { REGISTER } from '../../utils/mutations';
-import Auth from '../../utils/auth';
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import { REGISTER } from "../../utils/mutations";
+import Auth from "../../utils/auth";
+//component Dependencies
+import Snackbar from "../../components/Snackbar";
 
-export default function Register({
-  opendialog,
-  closedialog
-}) {
-  const [formState, setFormState] = useState({ firstName: '', lastName: '', email: '', password: '' });
+export default function Register({ opendialog, closedialog }) {
+  const [formState, setFormState] = useState({
+    firstName: '',
+    lastName: '',
+    email: "",
+    password: "",
+  });
   const [register, { error }] = useMutation(REGISTER);
-
+  const [err, setErr] = useState(false);
+  const [result, setResult] = useState(false);
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -28,16 +33,18 @@ export default function Register({
           lastName: formState.lastName,
           email: formState.email,
           password: formState.password,
-         },
-      });    
+        },
+      });
 
       // const token = mutationResponse.data.register.token;
       Auth.login(data.register.token);
+      setResult(true);
     } catch (e) {
       console.error(e);
-    };
-    handleClose();
-  }
+      setErr(true);
+    }
+    // handleClose();
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -55,26 +62,23 @@ export default function Register({
   };
 
   return (
-    <form >
-    <Grid container>
-      <Dialog
-        open={opendialog}
-        onClose={closedialog}
-      >        
-        <DialogTitle
-          id="alert-dialog-title"
-          sx={{
-            minWidth: "300px",
-            backgroundColor: "primary.main",
-            color: "#fff",
-          }}
-        >
-          Register
-        </DialogTitle>
-        <DialogContent 
-          sx={{ '& .MuiTextField-root': { marginTop: 2 }, marginTop: 2 }}
-        >
-          <TextField
+    <form>
+      <Grid container>
+        <Dialog open={opendialog} onClose={handleClose}>
+          <DialogTitle
+            id="alert-dialog-title"
+            sx={{
+              minWidth: "300px",
+              backgroundColor: "primary.main",
+              color: "#fff",
+            }}
+          >
+            Register
+          </DialogTitle>
+          <DialogContent
+            sx={{ "& .MuiTextField-root": { marginTop: 2 }, marginTop: 2 }}
+          >
+            <TextField
             autoFocus
             margin="dense"
             id="firstName"
@@ -95,38 +99,60 @@ export default function Register({
             variant="outlined"
             onChange={handleChange}
           />
-          <TextField
-            margin="dense"
-            id="email"
-            name="email"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="outlined"
-            onChange={handleChange}
+            <TextField
+              margin="dense"
+              id="email"
+              name="email"
+              label="Email Address"
+              type="email"
+              fullWidth
+              variant="outlined"
+              onChange={handleChange}
+            />
+            <TextField
+              margin="dense"
+              id="password"
+              name="password"
+              label="Password"
+              type="password"
+              fullWidth
+              variant="outlined"
+              onChange={handleChange}
+            />
+          </DialogContent>
+          <DialogActions sx={{ marginBottom: 3, px: 3 }}>
+            <Button
+              type="submit"
+              onClick={handleFormSubmit}
+              variant="contained"
+              fullWidth
+              size="large"
+            >
+              Register
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        {err && (
+          <Snackbar
+            snackopen={err}
+            snackclose={() => setErr(false)}
+            message="Login failed"
           />
-          <TextField
-            margin="dense"
-            id="password"
-            name="password"
-            label="Password"
-            type="password"
-            fullWidth
-            variant="outlined"
-            onChange={handleChange}
+        )}
+        {result && (
+          <Snackbar
+            snackopen={result}
+            snackclose={() => setResult(false)}
+            message="User successfully logged in..."
           />
-        </DialogContent>
-        <DialogActions sx={{ marginBottom: 3, px: 3 }}>
-          <Button type="submit" onClick={handleFormSubmit} variant="contained" fullWidth size='large' >Register</Button>
-        </DialogActions>
-      </Dialog>
-    </Grid>
+        )}
+      </Grid>
     </form>
   );
 }
 
 Register.propTypes = {
   openDialog: PropTypes.bool,
-  closeDialog: PropTypes.any
+  closeDialog: PropTypes.any,
 };
-
