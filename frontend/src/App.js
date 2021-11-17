@@ -1,5 +1,6 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
 import Home from "./containers/Home/Loadable";
 import MenuAppBar from "./components/AppBar";
 import {
@@ -9,7 +10,7 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import ContactUs from "./components/ContactUs";
+import ContactUs from "./containers/ContactUs/Loadable";
 import PageNotFound from "./components/NotFound";
 
 const httpLink = createHttpLink({
@@ -34,16 +35,17 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
+      <>
+        <CssBaseline />
         <Switch>
-          <Container maxWidth="xl">
+          <Container fixed>
             <MenuAppBar />
             <Route exact path="/" component={Home}></Route>
             <Route exact path="/contact-us" component={ContactUs}></Route>
-            <Route path="*" component={PageNotFound} />
+            <Route component={PageNotFound} />
           </Container>
         </Switch>
-      </Router>
+      </>
     </ApolloProvider>
   );
 }

@@ -3,8 +3,7 @@ import emailjs from "emailjs-com";
 import { Grid, TextField, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import emailImg from "../../assets/email.jpg";
-import DialogError from "../Dialog";
-import Snackbars from "../Snackbar";
+import Snackbars from "../../components/Snackbar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,6 +71,7 @@ const ContactUs = () => {
             fullWidth
             variant="outlined"
             onChange={handleChange}
+            required
           />
           <TextField
             margin="dense"
@@ -82,6 +82,7 @@ const ContactUs = () => {
             fullWidth
             variant="outlined"
             onChange={handleChange}
+            required
           />
           <TextField
             margin="dense"
@@ -92,6 +93,7 @@ const ContactUs = () => {
             fullWidth
             variant="outlined"
             onChange={handleChange}
+            required
           />
 
           <TextField
@@ -104,6 +106,7 @@ const ContactUs = () => {
             variant="outlined"
             rows={4}
             onChange={handleChange}
+            required
           />
           <Button type="submit" variant="contained" fullWidth size="large">
             SEND MESSAGE
@@ -118,11 +121,10 @@ const ContactUs = () => {
         />
       </Grid>
       {result.status !== 200 ? (
-        <DialogError
-          opendialog={result}
-          closeDialog={() => setResult(false)}
+        <Snackbars
+          snackopen={result}
+          snackclose={() => setResult(false)}
           message={result.toString()}
-          title="Error"
         />
       ) : (
         <Snackbars
