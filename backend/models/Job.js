@@ -13,13 +13,16 @@ const jobSchema = new Schema({
     type: String,
     required: true,
   },
-  location: {
+  address: {
     type: String,
     required: true,
   },
   jobTypes: {
     type: [String],
     required: true,
+  },
+  coordinates: {
+    type: [String],
   },
   //users who saved this job to their profile
   savedUsers: [{
@@ -41,5 +44,6 @@ jobSchema.virtual('appliedUsersCount').get(function () {
 });
 
 const Job = model("Job", jobSchema);
+
 
 module.exports = Job;
