@@ -14,6 +14,7 @@ import Menu from "@mui/material/Menu";
 import Snackbar from "../Snackbar";
 import Login from "../../containers/Login/Loadable";
 import Register from "../../containers/Register";
+import Auth from "../../utils/auth";
 
 export default function MenuAppBar() {
   const [auth] = React.useState(true);
@@ -37,6 +38,11 @@ export default function MenuAppBar() {
     setDlgRegisterOpen(true);
   };
 
+  const logout = (event) => {
+    event.preventDefault();
+    Auth.logout();
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -44,6 +50,39 @@ export default function MenuAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             HireMe
           </Typography>
+          {Auth.loggedIn() ? (
+          <>
+          <Button>
+          <Link to="/" onClick={logout}>Logout</Link>
+          </Button>
+          <Link to="/contact-us">CONTACT US</Link>
+          {auth && (
+            <div>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>My account</MenuItem>
+              </Menu>
+            </div>
+          )}
+        </>
+      ) : (
+        <>
           <Button variant="h6" component="div" mr={3} onClick={handleLogin}>
             Login
           </Button>
@@ -71,30 +110,7 @@ export default function MenuAppBar() {
               message="User successfully created!"
             />
           )}
-
-          {auth && (
-            <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-              </Menu>
-            </div>
+          </>
           )}
         </Toolbar>
       </AppBar>
