@@ -3,10 +3,14 @@ const bcrypt = require("bcrypt");
 
 const userSchema = new Schema(
   {
-    username: {
+    firstName: {
       type: String,
       required: true,
-      unique: true,
+      trim: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
       trim: true,
     },
     email: {
@@ -49,6 +53,14 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
+
+userSchema.virtual('savedJobsCount').get(function () {
+  return this.savedJobs.length;
+});
+
+userSchema.virtual('appliedJobsCount').get(function () {
+  return this.appliedJobs.length;
+});
 
 const User = model("User", userSchema);
 

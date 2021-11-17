@@ -9,29 +9,28 @@ const resolvers = {
     },
     job: async (parent, { title }) => {
       return Job.findOne({ title }).select("-__v");
-    }
+    },
+    me: async (parent, args, context) => {
+      if (context.user) {
+        const userData = await User.findOne({ _id: context.user._id })
+          .select('-__v -password')
+
+        return userData;
+      }
+      throw new AuthenticationError('Not logged in');
+    },
   },
   Mutation: {
-
-    saveJob: async (parent, { _id }, context) => {
+    addToSavedJobs: async (parent, args, context) => {
       if (context.user) {
-        return await User.findByIdAndUpdate(context.user._id, { $push: { savedJobs: _id } });
+        return await User.findByIdAndUpdate(context.user._id, { $push: { savedJobs: args._id } });
       }
       throw new AuthenticationError('Not logged in');
     },
 
-
-    applyJob: async (parent, { _id }, context) => {
+    addToAppliedJobs: async (parent, args, context) => {
       if (context.user) {
-        return await User.findByIdAndUpdate(context.user._id, { $push: { savedJobs: _id } });
-      }
-      throw new AuthenticationError('Not logged in');
-    },
-
-
-    updateJob: async (parent, { _id }, context) => {
-      if (context.user) {
-        return await Job.findByIdAndUpdate(_id, { $inc: { savedUser: +1 } });
+        return await User.findByIdAndUpdate(context.user._id, { $push: { appliedJobs: args._id } });
       }
       throw new AuthenticationError('Not logged in');
     },

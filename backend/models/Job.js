@@ -18,7 +18,7 @@ const jobSchema = new Schema({
     required: true,
   },
   jobTypes: {
-    type: [String],
+    type: String,
     required: true,
   },
   coordinates: {
@@ -44,6 +44,5 @@ jobSchema.virtual('appliedUsersCount').get(function () {
 });
 
 const Job = model("Job", jobSchema);
-
 
 module.exports = Job;
