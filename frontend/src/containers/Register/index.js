@@ -15,11 +15,12 @@ import Snackbar from "../../components/Snackbar";
 
 export default function Register({ opendialog, closedialog }) {
   const [formState, setFormState] = useState({
-    username: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
   });
-  const [register, { error }] = useMutation(REGISTER);
+  const [register] = useMutation(REGISTER);
   const [err, setErr] = useState(false);
   const [result, setResult] = useState(false);
   const handleFormSubmit = async (event) => {
@@ -28,7 +29,8 @@ export default function Register({ opendialog, closedialog }) {
     try {
       const { data } = await register({
         variables: {
-          username: formState.username,
+          firstName: formState.firstName,
+          lastName: formState.lastName,
           email: formState.email,
           password: formState.password,
         },
@@ -79,13 +81,25 @@ export default function Register({ opendialog, closedialog }) {
             <TextField
               autoFocus
               margin="dense"
-              id="username"
-              name="username"
-              label="Username"
-              type="text"
+              id="firstName"
+              name="firstName"
+              label="First Name"
+              type="firstName"
               fullWidth
               variant="outlined"
               onChange={handleChange}
+              required
+            />
+            <TextField
+              margin="dense"
+              id="lastName"
+              name="lastName"
+              label="Last Name"
+              type="lastName"
+              fullWidth
+              variant="outlined"
+              onChange={handleChange}
+              required
             />
             <TextField
               margin="dense"
@@ -96,6 +110,7 @@ export default function Register({ opendialog, closedialog }) {
               fullWidth
               variant="outlined"
               onChange={handleChange}
+              required
             />
             <TextField
               margin="dense"
@@ -106,6 +121,7 @@ export default function Register({ opendialog, closedialog }) {
               fullWidth
               variant="outlined"
               onChange={handleChange}
+              required
             />
           </DialogContent>
           <DialogActions sx={{ marginBottom: 3, px: 3 }}>
@@ -125,7 +141,7 @@ export default function Register({ opendialog, closedialog }) {
           <Snackbar
             snackopen={err}
             snackclose={() => setErr(false)}
-            message="Login failed"
+            message="Registration failed..."
           />
         )}
         {result && (

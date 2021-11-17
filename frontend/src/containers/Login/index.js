@@ -76,6 +76,7 @@ export default function Login({ opendialog, closedialog }) {
               fullWidth
               variant="outlined"
               onChange={handleChange}
+              required
             />
             <TextField
               margin="dense"
@@ -86,6 +87,7 @@ export default function Login({ opendialog, closedialog }) {
               fullWidth
               variant="outlined"
               onChange={handleChange}
+              required
             />
           </DialogContent>
           <DialogActions sx={{ marginBottom: 3, px: 3 }}>
@@ -100,13 +102,14 @@ export default function Login({ opendialog, closedialog }) {
             </Button>
           </DialogActions>
         </Dialog>
-        {err ? (
+        {err && (
           <Snackbar
             snackopen={err}
             snackclose={() => setErr(false)}
             message={error.toString()}
           />
-        ) : (
+        )}
+        {result && (
           <Snackbar
             snackopen={result}
             snackclose={() => setResult(false)}

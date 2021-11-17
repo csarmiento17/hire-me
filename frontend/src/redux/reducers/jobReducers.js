@@ -2,7 +2,7 @@ import {
   JOB_SEARCH_REQUEST,
   JOB_SEARCH_SUCCESS,
   JOB_SEARCH_ERROR,
-} from "./../constants";
+} from "../constants";
 
 export const INITIAL_STATE = {
   jobs: [],
