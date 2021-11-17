@@ -23,24 +23,7 @@ const jobSchema = new Schema({
   },
   coordinates: {
     type: [String],
-  },
-  //users who saved this job to their profile
-  savedUsers: [{
-    type: Schema.Types.ObjectId,
-    ref: "User"
-  }],
-  //users who applied this job
-  appliedUsers: [{
-    type: Schema.Types.ObjectId,
-    ref: "User"
-  }],
-});
-
-jobSchema.virtual('savedUsersCount').get(function () {
-  return this.savedUsers.length;
-});
-jobSchema.virtual('appliedUsersCount').get(function () {
-  return this.appliedUsers.length;
+  }
 });
 
 const Job = model("Job", jobSchema);

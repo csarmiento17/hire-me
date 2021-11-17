@@ -20,8 +20,6 @@ const typeDefs = gql`
     location:String
     jobTypes:String
     coordinates:[String]
-    savedUsersCount: Int
-    appliedUsers:Int
   }
 
   type Auth {
