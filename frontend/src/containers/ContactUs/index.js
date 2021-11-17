@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import emailjs from "emailjs-com";
-import { Grid, TextField, Button } from "@mui/material";
+import { Box, Grid, TextField, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import emailImg from "../../assets/email.jpg";
 import Snackbars from "../../components/Snackbar";
@@ -59,81 +59,83 @@ const ContactUs = () => {
   };
 
   return (
-    <Grid container className={classes.root} spacing={3}>
-      <Grid item xs={6}>
-        <form ref={form} onSubmit={sendEmail}>
-          <TextField
-            margin="dense"
-            id="name"
-            name="name"
-            label="Name"
-            type="text"
-            fullWidth
-            variant="outlined"
-            onChange={handleChange}
-            required
-          />
-          <TextField
-            margin="dense"
-            id="email"
-            name="email"
-            label="Email address"
-            type="text"
-            fullWidth
-            variant="outlined"
-            onChange={handleChange}
-            required
-          />
-          <TextField
-            margin="dense"
-            id="phone"
-            name="phone"
-            label="Phone number"
-            type="text"
-            fullWidth
-            variant="outlined"
-            onChange={handleChange}
-            required
-          />
+    <Box className="container">
+      <Grid container className={classes.root} spacing={3}>
+        <Grid item xs={6}>
+          <form ref={form} onSubmit={sendEmail}>
+            <TextField
+              margin="dense"
+              id="name"
+              name="name"
+              label="Name"
+              type="text"
+              fullWidth
+              variant="outlined"
+              onChange={handleChange}
+              required
+            />
+            <TextField
+              margin="dense"
+              id="email"
+              name="email"
+              label="Email address"
+              type="text"
+              fullWidth
+              variant="outlined"
+              onChange={handleChange}
+              required
+            />
+            <TextField
+              margin="dense"
+              id="phone"
+              name="phone"
+              label="Phone number"
+              type="text"
+              fullWidth
+              variant="outlined"
+              onChange={handleChange}
+              required
+            />
 
-          <TextField
-            id="message"
-            name="message"
-            margin="dense"
-            label="Write your message"
-            multiline
-            fullWidth
-            variant="outlined"
-            rows={4}
-            onChange={handleChange}
-            required
+            <TextField
+              id="message"
+              name="message"
+              margin="dense"
+              label="Write your message"
+              multiline
+              fullWidth
+              variant="outlined"
+              rows={4}
+              onChange={handleChange}
+              required
+            />
+            <Button type="submit" variant="contained" fullWidth size="large">
+              SEND MESSAGE
+            </Button>
+          </form>
+        </Grid>
+        <Grid item xs={6}>
+          <img
+            src={emailImg}
+            alt="Email"
+            style={{ height: "80%", width: "80%", marginTop: "10px" }}
           />
-          <Button type="submit" variant="contained" fullWidth size="large">
-            SEND MESSAGE
-          </Button>
-        </form>
+        </Grid>
+        {result.status !== 200 ? (
+          <Snackbars
+            snackopen={result}
+            snackclose={() => setResult(false)}
+            message={result.toString()}
+          />
+        ) : (
+          <Snackbars
+            snackopen={result}
+            snackclose={() => setResult(false)}
+            message="Message successfully sent. Thank you for your message."
+          />
+        )}
       </Grid>
-      <Grid item xs={6}>
-        <img
-          src={emailImg}
-          alt="Email"
-          style={{ height: "80%", width: "80%", marginTop: "10px" }}
-        />
-      </Grid>
-      {result.status !== 200 ? (
-        <Snackbars
-          snackopen={result}
-          snackclose={() => setResult(false)}
-          message={result.toString()}
-        />
-      ) : (
-        <Snackbars
-          snackopen={result}
-          snackclose={() => setResult(false)}
-          message="Message successfully sent. Thank you for your message."
-        />
-      )}
-    </Grid>
+    </Box>
   );
 };
 

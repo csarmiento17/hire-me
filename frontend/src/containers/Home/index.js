@@ -16,7 +16,7 @@ const Home = () => {
   ]);
 
   return (
-    <>
+    <Box className="container">
       <Grid
         container
         spacing={2}
@@ -57,7 +57,7 @@ const Home = () => {
           {/*<Map places={data} />*/}
         </Grid>
       </Grid>
-    </>
+    </Box>
   );
 };
 
