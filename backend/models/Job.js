@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const JobSchema = new Schema({
+const jobSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -21,6 +21,25 @@ const JobSchema = new Schema({
     type: [String],
     required: true,
   },
+  //users who saved this job to their profile
+  savedUsers: [{
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }],
+  //users who applied this job
+  appliedUsers: [{
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }],
 });
 
-module.exports = JobSchema;
+jobSchema.virtual('savedUsersCount').get(function () {
+  return this.savedUsers.length;
+});
+jobSchema.virtual('appliedUsersCount').get(function () {
+  return this.appliedUsers.length;
+});
+
+const Job = model("Job", jobSchema);
+
+module.exports = Job;
