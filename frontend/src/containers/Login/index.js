@@ -8,6 +8,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
+import Snackbar from "../../components/Snackbar";
 import { LOGIN } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 
@@ -17,6 +18,7 @@ export default function Login({
 }) {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN);
+  const [snackOpen, setSnackOpen] = useState(false);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();

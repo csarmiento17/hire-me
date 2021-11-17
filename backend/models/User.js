@@ -5,10 +5,14 @@ const jobSchema = require("./Job");
 
 const userSchema = new Schema(
   {
-    username: {
+    firstName: {
       type: String,
       required: true,
-      unique: true,
+      trim: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
       trim: true,
     },
     email: {

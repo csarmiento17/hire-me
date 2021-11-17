@@ -15,7 +15,7 @@ export default function Register({
   opendialog,
   closedialog
 }) {
-  const [formState, setFormState] = useState({ username:'', email: '', password: '' });
+  const [formState, setFormState] = useState({ firstName: '', lastName: '', email: '', password: '' });
   const [register, { error }] = useMutation(REGISTER);
 
   const handleFormSubmit = async (event) => {
@@ -24,7 +24,8 @@ export default function Register({
     try {
       const { data } = await register({
         variables: { 
-          username: formState.username,
+          firstName: formState.firstName,
+          lastName: formState.lastName,
           email: formState.email,
           password: formState.password,
          },
@@ -76,10 +77,20 @@ export default function Register({
           <TextField
             autoFocus
             margin="dense"
-            id="username"
-            name="username"
-            label="Username"
-            type="text"
+            id="firstName"
+            name="firstName"
+            label="First Name"
+            type="firstName"
+            fullWidth
+            variant="outlined"
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            id="lastName"
+            name="lastName"
+            label="Last Name"
+            type="lastName"
             fullWidth
             variant="outlined"
             onChange={handleChange}
