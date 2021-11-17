@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 
 import Box from "@mui/material/Box";
@@ -12,11 +13,13 @@ import Menu from "@mui/material/Menu";
 // component dependencies
 import Snackbar from "../Snackbar";
 import Login from "../../containers/Login/Loadable";
+import Register from "../../containers/Register";
 
 export default function MenuAppBar() {
-  const [auth, setAuth] = React.useState(true);
+  const [auth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [dlgLoginOpen, setDlgLoginOpen] = useState(false);
+  const [dlgRegisterOpen, setDlgRegisterOpen] = useState(false);
   const [snackOpen, setSnackOpen] = useState(false);
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -31,7 +34,7 @@ export default function MenuAppBar() {
   };
 
   const handleRegister = () => {
-    setSnackOpen(true);
+    setDlgRegisterOpen(true);
   };
 
   return (
@@ -47,13 +50,20 @@ export default function MenuAppBar() {
           <Button variant="h6" component="div" onClick={handleRegister}>
             Register
           </Button>
+          <Link to="/contact-us">CONTACT US</Link>
+
           {dlgLoginOpen && (
             <Login
               opendialog={dlgLoginOpen}
               closedialog={() => setDlgLoginOpen(false)}
             />
           )}
-
+          {dlgRegisterOpen && (
+            <Register
+              opendialog={dlgRegisterOpen}
+              closedialog={() => setDlgRegisterOpen(false)}
+            />
+          )}
           {snackOpen && (
             <Snackbar
               snackopen={snackOpen}
@@ -77,19 +87,11 @@ export default function MenuAppBar() {
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
                 keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
               </Menu>
             </div>
