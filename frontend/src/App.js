@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import CssBaseline from "@mui/material/CssBaseline";
 import Home from "./containers/Home/Loadable";
 import MenuAppBar from "./components/AppBar";
 import {
@@ -12,7 +11,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import ContactUs from "./containers/ContactUs/Loadable";
 import PageNotFound from "./components/NotFound";
-import { Container } from "@mui/material";
+import SavedJobs from "./containers/Saved";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -42,6 +41,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/contact-us" component={ContactUs} />
+            <Route exact path="/saved-jobs" component={SavedJobs} />
             <Route component={PageNotFound} />
           </Switch>
         </div>
