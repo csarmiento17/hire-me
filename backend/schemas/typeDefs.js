@@ -2,10 +2,10 @@ const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type User {
-    _id: ID
-    firstName: String
+    _id:ID
+    firstName:String
     lastName:String
-    email: String
+    email:String
     savedJobs:[Job]
     appliedJobs:[Job]
     savedJobsCount:Int
@@ -14,7 +14,7 @@ const typeDefs = gql`
 
   type Job {
     _id:ID
-    title: String
+    title:String
     jobDescription:String
     company:String
     location:String
