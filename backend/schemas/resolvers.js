@@ -8,7 +8,10 @@ const resolvers = {
       return User.findOne({ email }).select("-__v -password");
     },
     job: async (parent, { title }) => {
-      return Job.find({ title }).select("-__v");
+      return Job.findOne({ title }).select("-__v");
+    },
+    jobs: async () => {
+      return Job.find().select("-__v");
     },
     me: async (parent, args, context) => {
       if (context.user) {
