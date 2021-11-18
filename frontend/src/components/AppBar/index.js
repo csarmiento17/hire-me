@@ -45,6 +45,10 @@ export default function MenuAppBar() {
     history.push("/contact-us");
   };
 
+  const handleSavedJobs = () => {
+    history.push("/saved-jobs");
+  };
+
   return (
     <Box>
       <AppBar position="fixed">
@@ -108,7 +112,7 @@ export default function MenuAppBar() {
                 onClose={handleClose}
               >
                 <MenuItem>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleSavedJobs}>My Jobs</MenuItem>
               </Menu>
             </div>
           )}
