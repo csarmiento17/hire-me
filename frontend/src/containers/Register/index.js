@@ -15,12 +15,12 @@ import Snackbar from "../../components/Snackbar";
 
 export default function Register({ opendialog, closedialog }) {
   const [formState, setFormState] = useState({
-    firstName: '',
-    lastName: '',
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
   });
-  const [register, { error }] = useMutation(REGISTER);
+  const [register] = useMutation(REGISTER);
   const [err, setErr] = useState(false);
   const [result, setResult] = useState(false);
   const handleFormSubmit = async (event) => {
@@ -28,7 +28,7 @@ export default function Register({ opendialog, closedialog }) {
 
     try {
       const { data } = await register({
-        variables: { 
+        variables: {
           firstName: formState.firstName,
           lastName: formState.lastName,
           email: formState.email,
@@ -79,26 +79,28 @@ export default function Register({ opendialog, closedialog }) {
             sx={{ "& .MuiTextField-root": { marginTop: 2 }, marginTop: 2 }}
           >
             <TextField
-            autoFocus
-            margin="dense"
-            id="firstName"
-            name="firstName"
-            label="First Name"
-            type="firstName"
-            fullWidth
-            variant="outlined"
-            onChange={handleChange}
-          />
-          <TextField
-            margin="dense"
-            id="lastName"
-            name="lastName"
-            label="Last Name"
-            type="lastName"
-            fullWidth
-            variant="outlined"
-            onChange={handleChange}
-          />
+              autoFocus
+              margin="dense"
+              id="firstName"
+              name="firstName"
+              label="First Name"
+              type="firstName"
+              fullWidth
+              variant="outlined"
+              onChange={handleChange}
+              required
+            />
+            <TextField
+              margin="dense"
+              id="lastName"
+              name="lastName"
+              label="Last Name"
+              type="lastName"
+              fullWidth
+              variant="outlined"
+              onChange={handleChange}
+              required
+            />
             <TextField
               margin="dense"
               id="email"
@@ -108,6 +110,7 @@ export default function Register({ opendialog, closedialog }) {
               fullWidth
               variant="outlined"
               onChange={handleChange}
+              required
             />
             <TextField
               margin="dense"
@@ -118,6 +121,7 @@ export default function Register({ opendialog, closedialog }) {
               fullWidth
               variant="outlined"
               onChange={handleChange}
+              required
             />
           </DialogContent>
           <DialogActions sx={{ marginBottom: 3, px: 3 }}>
@@ -137,7 +141,7 @@ export default function Register({ opendialog, closedialog }) {
           <Snackbar
             snackopen={err}
             snackclose={() => setErr(false)}
-            message="Login failed"
+            message="Registration failed..."
           />
         )}
         {result && (

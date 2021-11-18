@@ -7,8 +7,33 @@ const resolvers = {
     user: async (parent, { email }) => {
       return User.findOne({ email }).select("-__v -password");
     },
+    job: async (parent, { title }) => {
+      return Job.find({ title }).select("-__v");
+    },
+    me: async (parent, args, context) => {
+      if (context.user) {
+        const userData = await User.findOne({ _id: context.user._id })
+          .select('-__v -password')
+        return userData;
+      }
+      throw new AuthenticationError('Not logged in');
+    },
   },
   Mutation: {
+    addToSavedJobs: async (parent, args, context) => {
+      if (context.user) {
+        return await User.findByIdAndUpdate(context.user._id, { $push: { savedJobs: args._id } });
+      }
+      throw new AuthenticationError('Not logged in');
+    },
+
+    addToAppliedJobs: async (parent, args, context) => {
+      if (context.user) {
+        return await User.findByIdAndUpdate(context.user._id, { $push: { appliedJobs: args._id } });
+      }
+      throw new AuthenticationError('Not logged in');
+    },
+
     register: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);
