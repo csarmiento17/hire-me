@@ -31,7 +31,11 @@ const userSchema = new Schema(
     appliedJobs: [{
       type: Schema.Types.ObjectId,
       ref: "Job"
-    }]
+    }],
+    premium: {
+      type: Boolean,
+      default: false
+    }
   },
   {
     toJSON: {

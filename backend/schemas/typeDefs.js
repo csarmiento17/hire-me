@@ -27,10 +27,15 @@ const typeDefs = gql`
     user: User
   }
 
+  type Subscribe {
+    session: ID!
+  }
+
   type Query {
     me:User
     user(username: String!): User
     job(title:String!):Job
+    subscribe(productNum: Int!): Subscribe
   }
 
   type Mutation {

@@ -9,8 +9,10 @@ import {
   Typography,
   MenuItem,
   Menu,
+  Divider,
 } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import Verified from "@mui/icons-material/Verified";
 
 // component dependencies
 import Snackbar from "../Snackbar";
@@ -24,6 +26,9 @@ export default function MenuAppBar() {
   const [dlgRegisterOpen, setDlgRegisterOpen] = useState(false);
   const [snackOpen, setSnackOpen] = useState(false);
   const history = useHistory();
+
+  // temp premium variable. Get value from user
+  const premium = false;
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -111,8 +116,18 @@ export default function MenuAppBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem>Profile</MenuItem>
+                <MenuItem>
+                  {premium && <Verified fontSize="small" />}
+                  Profile
+                </MenuItem>
                 <MenuItem onClick={handleSavedJobs}>My Jobs</MenuItem>
+                {!premium && 
+                  <>
+                    <Divider />
+                    <MenuItem>Subscribe</MenuItem>
+                  </>
+                }
+
               </Menu>
             </div>
           )}
