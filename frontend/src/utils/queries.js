@@ -11,3 +11,11 @@ export const QUERY_USER = gql`
   }
 `;
 
+export const QUERY_SUBSCRIBE = gql`
+  query subscribe($productNum: Int!) {
+    subscribe(productNum: $productNum) {
+      session
+    }
+  }
+`;
+

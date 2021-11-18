@@ -18,12 +18,15 @@ import Verified from "@mui/icons-material/Verified";
 import Snackbar from "../Snackbar";
 import Login from "../../containers/Login/Loadable";
 import Register from "../../containers/Register";
+import Subscribe from "../../containers/Subscribe";
 import Logo from "../../assets/logo.png";
+
 export default function MenuAppBar() {
   const [auth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [dlgLoginOpen, setDlgLoginOpen] = useState(false);
   const [dlgRegisterOpen, setDlgRegisterOpen] = useState(false);
+  const [dlgSubscribeOpen, setDlgSubscribeOpen] = useState(false);
   const [snackOpen, setSnackOpen] = useState(false);
   const history = useHistory();
 
@@ -44,6 +47,10 @@ export default function MenuAppBar() {
 
   const handleRegister = () => {
     setDlgRegisterOpen(true);
+  };
+
+  const handleSubscribe = () => {
+    setDlgSubscribeOpen(true);
   };
 
   const handleContactUs = () => {
@@ -89,6 +96,12 @@ export default function MenuAppBar() {
               closedialog={() => setDlgRegisterOpen(false)}
             />
           )}
+          {dlgSubscribeOpen && (
+            <Subscribe
+              opendialog={dlgSubscribeOpen}
+              closedialog={() => setDlgSubscribeOpen(false)}
+            />
+          )}
           {snackOpen && (
             <Snackbar
               snackopen={snackOpen}
@@ -124,7 +137,7 @@ export default function MenuAppBar() {
                 {!premium && 
                   <>
                     <Divider />
-                    <MenuItem>Subscribe</MenuItem>
+                    <MenuItem onClick={handleSubscribe}>Subscribe</MenuItem>
                   </>
                 }
 
