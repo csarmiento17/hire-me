@@ -16,6 +16,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import Snackbar from "../Snackbar";
 import Login from "../../containers/Login/Loadable";
 import Register from "../../containers/Register";
+import Auth from "../../utils/auth";
 import Logo from "../../assets/logo.png";
 export default function MenuAppBar() {
   const [auth] = React.useState(true);
@@ -41,6 +42,11 @@ export default function MenuAppBar() {
     setDlgRegisterOpen(true);
   };
 
+  const logout = (event) => {
+    event.preventDefault();
+    Auth.logout();
+  }
+
   const handleContactUs = () => {
     history.push("/contact-us");
   };
@@ -50,17 +56,52 @@ export default function MenuAppBar() {
   };
 
   return (
-    <Box>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton component={Link} to="/">
+        <IconButton component={Link} to="/">
             <img
               src={Logo}
               alt="Logo"
               style={{ width: "50px", height: "50px" }}
             />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
+          <Box sx={{ flexGrow: 1 }} />
+
+          {Auth.loggedIn() ? (
+          <>
+          
+          <Button variant="h6" component="div" onClick={handleContactUs}>
+            Contact Us
+          </Button>
+          {auth && (
+            <div>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem>Profile</MenuItem>
+                <MenuItem onClick={handleSavedJobs}>My Jobs</MenuItem>
+                <MenuItem onClick={logout}>Logout</MenuItem>
+              </Menu>
+            </div>
+          )}
+        </>
+      ) : (
+        <>
 
           <Button variant="h6" component="div" mr={3} onClick={handleLogin}>
             Login
@@ -91,30 +132,7 @@ export default function MenuAppBar() {
               message="User successfully created!"
             />
           )}
-
-          {auth && (
-            <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem>Profile</MenuItem>
-                <MenuItem onClick={handleSavedJobs}>My Jobs</MenuItem>
-              </Menu>
-            </div>
+          </>
           )}
         </Toolbar>
       </AppBar>
