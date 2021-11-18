@@ -66,13 +66,14 @@ export default function MenuAppBar() {
               style={{ width: "50px", height: "50px" }}
             />
           </IconButton>
-         
+          <Box sx={{ flexGrow: 1 }} />
+
           {Auth.loggedIn() ? (
           <>
-          <Button>
-          <Link to="/" onClick={logout}>Logout</Link>
+          
+          <Button variant="h6" component="div" onClick={handleContactUs}>
+            Contact Us
           </Button>
-          <Link to="/contact-us">CONTACT US</Link>
           {auth && (
             <div>
               <IconButton
@@ -94,13 +95,13 @@ export default function MenuAppBar() {
               >
                 <MenuItem>Profile</MenuItem>
                 <MenuItem onClick={handleSavedJobs}>My Jobs</MenuItem>
+                <MenuItem onClick={logout}>Logout</MenuItem>
               </Menu>
             </div>
           )}
         </>
       ) : (
         <>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
 
           <Button variant="h6" component="div" mr={3} onClick={handleLogin}>
             Login
