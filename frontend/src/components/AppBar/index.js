@@ -19,6 +19,7 @@ import Snackbar from "../Snackbar";
 import Login from "../../containers/Login/Loadable";
 import Register from "../../containers/Register";
 import Subscribe from "../../containers/Subscribe";
+import Auth from "../../utils/auth";
 import Logo from "../../assets/logo.png";
 
 export default function MenuAppBar() {
@@ -52,6 +53,10 @@ export default function MenuAppBar() {
   const handleSubscribe = () => {
     setDlgSubscribeOpen(true);
   };
+  const logout = (event) => {
+    event.preventDefault();
+    Auth.logout();
+  }
 
   const handleContactUs = () => {
     history.push("/contact-us");
@@ -62,7 +67,7 @@ export default function MenuAppBar() {
   };
 
   return (
-    <Box>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
         <Toolbar>
           <IconButton component={Link} to="/">
@@ -72,81 +77,116 @@ export default function MenuAppBar() {
               style={{ width: "50px", height: "50px" }}
             />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
+          <Box sx={{ flexGrow: 1 }} />
 
-          <Button variant="h6" component="div" mr={3} onClick={handleLogin}>
-            Login
-          </Button>
-          <Button variant="h6" component="div" onClick={handleRegister}>
-            Register
-          </Button>
-          <Button variant="h6" component="div" onClick={handleContactUs}>
-            Contact Us
-          </Button>
+          {Auth.loggedIn() ? (
+          <>
+          
+            <Button variant="h6" component="div" onClick={handleContactUs}>
+              Contact Us
+            </Button>
+            {auth && (
+              <div>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem>Profile</MenuItem>
+                  <MenuItem onClick={handleSavedJobs}>My Jobs</MenuItem>
+                  <MenuItem onClick={logout}>Logout</MenuItem>
+                </Menu>
+              </div>
+            )}
+          </>
+          ) : (
+          <>
 
-          {dlgLoginOpen && (
-            <Login
-              opendialog={dlgLoginOpen}
-              closedialog={() => setDlgLoginOpen(false)}
-            />
-          )}
-          {dlgRegisterOpen && (
-            <Register
-              opendialog={dlgRegisterOpen}
-              closedialog={() => setDlgRegisterOpen(false)}
-            />
-          )}
-          {dlgSubscribeOpen && (
-            <Subscribe
-              opendialog={dlgSubscribeOpen}
-              closedialog={() => setDlgSubscribeOpen(false)}
-            />
-          )}
-          {snackOpen && (
-            <Snackbar
-              snackopen={snackOpen}
-              snackclose={() => setSnackOpen(false)}
-              message="User successfully created!"
-            />
-          )}
+            <Button variant="h6" component="div" mr={3} onClick={handleLogin}>
+              Login
+            </Button>
+            <Button variant="h6" component="div" onClick={handleRegister}>
+              Register
+            </Button>
+            <Button variant="h6" component="div" onClick={handleContactUs}>
+              Contact Us
+            </Button>
 
-          {auth && (
-            <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem>
-                  {premium && <Verified fontSize="small" />}
-                  Profile
-                </MenuItem>
-                <MenuItem onClick={handleSavedJobs}>My Jobs</MenuItem>
-                {!premium && 
-                  <>
-                    <Divider />
-                    <MenuItem onClick={handleSubscribe}>Subscribe</MenuItem>
-                  </>
-                }
+            {dlgLoginOpen && (
+              <Login
+                opendialog={dlgLoginOpen}
+                closedialog={() => setDlgLoginOpen(false)}
+              />
+            )}
+            {dlgRegisterOpen && (
+              <Register
+                opendialog={dlgRegisterOpen}
+                closedialog={() => setDlgRegisterOpen(false)}
+              />
+            )}
+            {dlgSubscribeOpen && (
+              <Subscribe
+                opendialog={dlgSubscribeOpen}
+                closedialog={() => setDlgSubscribeOpen(false)}
+              />
+            )}
+            {snackOpen && (
+              <Snackbar
+                snackopen={snackOpen}
+                snackclose={() => setSnackOpen(false)}
+                message="User successfully created!"
+              />
+            )}
 
-              </Menu>
-            </div>
+            {auth && 
+              <div>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem>
+                    {premium && <Verified fontSize="small" />}
+                    Profile
+                  </MenuItem>
+                  <MenuItem onClick={handleSavedJobs}>My Jobs</MenuItem>
+                  {!premium && 
+                    <div>
+                      <Divider />
+                      <MenuItem onClick={handleSubscribe}>Subscribe</MenuItem>
+                    </div>
+                  }
+                </Menu>
+              </div>
+            }
+          </>
           )}
         </Toolbar>
       </AppBar>
-      <Toolbar />
     </Box>
   );
 }
