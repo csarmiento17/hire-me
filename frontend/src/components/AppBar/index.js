@@ -1,26 +1,30 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
-
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
+import {
+  Box,
+  Toolbar,
+  Button,
+  IconButton,
+  Typography,
+  MenuItem,
+  Menu,
+} from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
+
 // component dependencies
 import Snackbar from "../Snackbar";
 import Login from "../../containers/Login/Loadable";
 import Register from "../../containers/Register";
-
+import Logo from "../../assets/logo.png";
 export default function MenuAppBar() {
   const [auth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [dlgLoginOpen, setDlgLoginOpen] = useState(false);
   const [dlgRegisterOpen, setDlgRegisterOpen] = useState(false);
   const [snackOpen, setSnackOpen] = useState(false);
+  const history = useHistory();
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -37,20 +41,32 @@ export default function MenuAppBar() {
     setDlgRegisterOpen(true);
   };
 
+  const handleContactUs = () => {
+    history.push("/contact-us");
+  };
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <AppBar position="fixed">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            HireMe
-          </Typography>
+          <IconButton component={Link} to="/">
+            <img
+              src={Logo}
+              alt="Logo"
+              style={{ width: "50px", height: "50px" }}
+            />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
+
           <Button variant="h6" component="div" mr={3} onClick={handleLogin}>
             Login
           </Button>
           <Button variant="h6" component="div" onClick={handleRegister}>
             Register
           </Button>
-          <Link to="/contact-us">CONTACT US</Link>
+          <Button variant="h6" component="div" onClick={handleContactUs}>
+            Contact Us
+          </Button>
 
           {dlgLoginOpen && (
             <Login

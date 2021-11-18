@@ -11,3 +11,10 @@ body {
 a {
   text-decoration: none;
 }
+
+.container {
+  width: 85%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
