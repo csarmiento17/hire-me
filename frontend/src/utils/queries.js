@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const QUERY_USER = gql`
   {
@@ -6,8 +6,18 @@ export const QUERY_USER = gql`
       firstName
       lastName
       email
-      
     }
   }
 `;
 
+export const QUERY_JOBS = gql`
+  {
+    jobs {
+      title
+      company
+      jobDescription
+      jobTypes
+      coordinates
+    }
+  }
+`;
