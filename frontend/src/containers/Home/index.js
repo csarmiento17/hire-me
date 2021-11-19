@@ -53,7 +53,7 @@ const Home = () => {
             <List jobs={jobs} childClicked={childClicked} />
           )}
         </Grid>
-        <Grid
+        {/*  <Grid
           item
           xs={8}
           sx={{
@@ -68,6 +68,7 @@ const Home = () => {
             <Map places={jobs} setChildClicked={setChildClicked} />
           )}
         </Grid>
+            */}
       </Grid>
     </Box>
   );
