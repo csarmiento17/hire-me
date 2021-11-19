@@ -2,7 +2,6 @@ const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type User {
-    _id:ID
     firstName:String
     lastName:String
     email:String
@@ -13,11 +12,10 @@ const typeDefs = gql`
   }
 
   type Job {
-    _id:ID
     title:String
     jobDescription:String
     company:String
-    location:String
+    address:String
     jobTypes:String
     coordinates:[String]
   }
@@ -31,6 +29,7 @@ const typeDefs = gql`
     me:User
     user(username: String!): User
     job(title:String!):Job
+    jobs:[Job]
   }
 
   type Mutation {
