@@ -39,7 +39,9 @@ const Home = () => {
             type="search"
           />
           {/* <TextField id="outlined-search" label="location" type="search" />*/}
-          <Button variant="contained">Find jobs</Button>
+          <Button variant="contained" sx={{ margin: 1 }}>
+            Find jobs
+          </Button>
         </Box>
       </Grid>
 

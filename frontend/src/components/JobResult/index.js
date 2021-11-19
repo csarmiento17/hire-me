@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -7,9 +7,17 @@ import {
   Grid,
   Chip,
   Button,
+  IconButton,
 } from "@mui/material";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 
 export default function JobResult({ job, selected, refProp }) {
+  const [isReadMore, setIsReadMore] = useState(true);
+  const toggleReadMore = () => {
+    setIsReadMore(!isReadMore);
+  };
+
   if (selected)
     refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 
@@ -24,7 +32,13 @@ export default function JobResult({ job, selected, refProp }) {
         </Typography>
         <Chip label={job.jobTypes} variant="outlined"></Chip>
         <Typography variant="subtitle2" component="div">
-          {job.jobDescription}
+          {/*`${job.jobDescription.substring(1, 250)} ...`*/}
+          {isReadMore ? job.jobDescription.slice(0, 150) : job.jobDescription}
+          <IconButton>
+            <span onClick={toggleReadMore} style={{ color: "blue" }}>
+              {isReadMore ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+            </span>
+          </IconButton>
         </Typography>
       </CardContent>
       <CardActions>
