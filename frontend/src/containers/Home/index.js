@@ -4,16 +4,18 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 //component dependencies
-import JobResult from "../../components/JobResult";
-import Map from "../Map";
+import List from "../../components/List";
+import Map from "../../components/Map";
 import Spinner from "../../components/Spinner";
 //queries and mutations
 import { useQuery } from "@apollo/client";
 import { QUERY_JOBS } from "../../utils/queries";
 
 const Home = () => {
+  const [childClicked, setChildClicked] = useState(null);
   const { loading, data } = useQuery(QUERY_JOBS);
   const jobs = data?.jobs || [];
+
   return (
     <Box className="container">
       <Grid
@@ -42,8 +44,12 @@ const Home = () => {
       </Grid>
 
       <Grid container style={{ marginTop: "30px" }}>
-        <Grid item xs={12} sm={4} sx={{ maxWidth: 345, maxHeight: 600 }}>
-          {loading ? <Spinner /> : <JobResult jobs={jobs} />}
+        <Grid item xs={12} sm={4} sx={{ height: "70vh", overflow: "auto" }}>
+          {loading ? (
+            <Spinner />
+          ) : (
+            <List jobs={jobs} childClicked={childClicked} />
+          )}
         </Grid>
         <Grid
           item
@@ -54,7 +60,11 @@ const Home = () => {
             height: "70vh",
           }}
         >
-          {/* <Map places={jobs} /> */}
+          {loading ? (
+            <Spinner />
+          ) : (
+            <Map places={jobs} setChildClicked={setChildClicked} />
+          )}
         </Grid>
       </Grid>
     </Box>

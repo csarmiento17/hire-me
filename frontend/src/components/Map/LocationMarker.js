@@ -1,8 +1,8 @@
 import React from "react";
 import RoomIcon from "@mui/icons-material/Room";
-import { Box, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 
-const Marker = ({ lat, lng, onClick }) => {
+const Marker = ({ onClick }) => {
   return (
     <>
       <IconButton onClick={onClick}>
