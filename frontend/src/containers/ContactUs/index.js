@@ -3,6 +3,7 @@ import emailjs from "emailjs-com";
 import { Box, Grid, TextField, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import emailImg from "../../assets/email.jpg";
+import SendEmailImg from "../../assets/send-email.svg";
 import Snackbars from "../../components/Snackbar";
 
 const useStyles = makeStyles((theme) => ({
@@ -61,7 +62,7 @@ const ContactUs = () => {
   return (
     <Box className="container">
       <Grid container className={classes.root} spacing={3}>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <form ref={form} onSubmit={sendEmail}>
             <TextField
               margin="dense"
@@ -114,13 +115,15 @@ const ContactUs = () => {
             </Button>
           </form>
         </Grid>
-        <Grid item xs={6}>
+
+        {/** <Grid item xs={12}>
           <img
-            src={emailImg}
+            src={SendEmailImg}
             alt="Email"
-            style={{ height: "80%", width: "80%", marginTop: "10px" }}
+            style={{ height: "100%", width: "100%", marginTop: "-80px" }}
           />
         </Grid>
+        */}
         {result.status !== 200 ? (
           <Snackbars
             snackopen={result}

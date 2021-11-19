@@ -3,17 +3,18 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-
-import Map from "../Map";
+//component dependencies
+import List from "../../components/List";
+import Map from "../../components/Map";
+import Spinner from "../../components/Spinner";
+//queries and mutations
+import { useQuery } from "@apollo/client";
+import { QUERY_JOBS } from "../../utils/queries";
 
 const Home = () => {
-  const [data] = useState([
-    { company: "Accenture", coordinates: [43.650982, -79.384993] },
-    { company: "Google", coordinates: [43.649072, -79.384783] },
-    { company: "IBM", coordinates: [43.66455, -79.382963] },
-    { company: "Amazon", coordinates: [43.666909, -79.374212] },
-    { company: "Facebook", coordinates: [43.65595, -79.401264] },
-  ]);
+  const [childClicked, setChildClicked] = useState(null);
+  const { loading, data } = useQuery(QUERY_JOBS);
+  const jobs = data?.jobs || [];
 
   return (
     <Box className="container">
@@ -34,18 +35,25 @@ const Home = () => {
         >
           <TextField
             id="outlined-search"
-            label="Job title, keywords, or company"
+            label="Search for Job title"
             type="search"
           />
-          <TextField id="outlined-search" label="location" type="search" />
-          <Button variant="contained">Find jobs</Button>
+          {/* <TextField id="outlined-search" label="location" type="search" />*/}
+          <Button variant="contained" sx={{ margin: 1 }}>
+            Find jobs
+          </Button>
         </Box>
       </Grid>
+
       <Grid container style={{ marginTop: "30px" }}>
-        <Grid item xs={12} sm={4}>
-          Job Results
+        <Grid item xs={12} sm={4} sx={{ height: "70vh", overflow: "auto" }}>
+          {loading ? (
+            <Spinner />
+          ) : (
+            <List jobs={jobs} childClicked={childClicked} />
+          )}
         </Grid>
-        <Grid
+        {/*  <Grid
           item
           xs={8}
           sx={{
@@ -54,8 +62,13 @@ const Home = () => {
             height: "70vh",
           }}
         >
-          {/*<Map places={data} />*/}
+          {loading ? (
+            <Spinner />
+          ) : (
+            <Map places={jobs} setChildClicked={setChildClicked} />
+          )}
         </Grid>
+            */}
       </Grid>
     </Box>
   );
