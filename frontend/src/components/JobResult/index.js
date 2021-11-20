@@ -27,12 +27,11 @@ export default function JobResult({ job, selected, refProp }) {
         <Typography variant="h6" component="div">
           {job.title}
         </Typography>
-        <Typography variant="subtitle2" component="div">
+        <Typography variant="subtitle1" component="div">
           {job.company}
         </Typography>
         <Chip label={job.jobTypes} variant="outlined"></Chip>
-        <Typography variant="subtitle2" component="div">
-          {/*`${job.jobDescription.substring(1, 250)} ...`*/}
+        <Typography variant="subtitle2" component="div" sx={{marginTop:2}}>
           {isReadMore ? job.jobDescription.slice(0, 150) : job.jobDescription}
           <IconButton>
             <span onClick={toggleReadMore} style={{ color: "blue" }}>

@@ -4,6 +4,7 @@ const { Kind } = require('graphql/language');
 
 const typeDefs = gql`
   type User {
+    _id:ID
     firstName:String
     lastName:String
     email:String
@@ -22,6 +23,7 @@ const typeDefs = gql`
   }
 
   type Job {
+    _id:ID
     title:String
     jobDescription:String
     company:String
