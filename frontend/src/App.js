@@ -12,6 +12,7 @@ import { setContext } from "@apollo/client/link/context";
 import ContactUs from "./containers/ContactUs/Loadable";
 import PageNotFound from "./components/NotFound";
 import SavedJobs from "./containers/Saved";
+import Success from "./containers/Success";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -42,6 +43,7 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/contact-us" component={ContactUs} />
             <Route exact path="/saved-jobs" component={SavedJobs} />
+            <Route exact path="/success" component={Success} />
             <Route component={PageNotFound} />
           </Switch>
         </div>
