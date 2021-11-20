@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
-
+const Job = require("./Job");
 const userSchema = new Schema(
   {
     firstName: {
@@ -24,14 +24,8 @@ const userSchema = new Schema(
       required: true,
       minlength: 5,
     },
-    savedJobs: [{
-      type: Schema.Types.ObjectId,
-      ref: "Job"
-    }],
-    appliedJobs: [{
-      type: Schema.Types.ObjectId,
-      ref: "Job"
-    }]
+    savedJobs: [Job.schema],
+    appliedJobs: [Job.schema]
   },
   {
     toJSON: {
