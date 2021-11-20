@@ -1,10 +1,6 @@
 const { AuthenticationError } = require("apollo-server-express");
-// import { PrismaClient } from '@prisma/client';
-
 const { User, Job } = require("../models");
 const { signToken } = require("../utils/auth");
-
-// const prisma = new PrismaClient();
 
 const resolvers = {
   Query: {
