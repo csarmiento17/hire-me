@@ -1,6 +1,10 @@
 const { AuthenticationError } = require("apollo-server-express");
+// import { PrismaClient } from '@prisma/client';
+
 const { User, Job } = require("../models");
 const { signToken } = require("../utils/auth");
+
+// const prisma = new PrismaClient();
 
 const resolvers = {
   Query: {
@@ -10,6 +14,12 @@ const resolvers = {
     job: async (parent, { title }) => {
       return Job.findOne({ title }).select("-__v");
     },
+    //     allJobs: async() =>{
+    // return 
+    //     },
+    // job: async (parent) => {
+    //   return Job.find({ title :{$regex:/developer/, $options:"i"} }).select("-__v");
+    // },
     jobs: async () => {
       return Job.find().select("-__v");
     },
@@ -26,18 +36,25 @@ const resolvers = {
   Mutation: {
     addToSavedJobs: async (parent, args, context) => {
       if (context.user) {
-        return await User.findByIdAndUpdate(context.user._id, {
-          $push: { savedJobs: args._id },
-        });
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { savedJobs: args.bookData } },
+          { new: true }
+        )
+        return updatedUser;
       }
       throw new AuthenticationError("Not logged in");
     },
 
     addToAppliedJobs: async (parent, args, context) => {
       if (context.user) {
-        return await User.findByIdAndUpdate(context.user._id, {
-          $push: { appliedJobs: args._id },
-        });
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { appliedJobs: args.bookData } },
+          { new: true }
+        )
+        return updatedUser;
+
       }
       throw new AuthenticationError("Not logged in");
     },
