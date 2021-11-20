@@ -3,7 +3,7 @@ import GoogleMapReact from "google-map-react";
 import Marker from "./LocationMarker";
 import LocationInfo from "./LocationInfo";
 
-const Map = ({ center, zoom, places, setChildClicked }) => {
+const Map = ({ center, places, setChildClicked }) => {
   const [locInfo, setLocInfo] = useState(null);
 
   const handlePinInfo = (e, item) => {
@@ -18,15 +18,16 @@ const Map = ({ center, zoom, places, setChildClicked }) => {
         lat={item.coordinates[0]}
         lng={item.coordinates[1]}
         onClick={(e) => handlePinInfo(e, item)}
-      />
+      ></Marker>
     );
   });
   return (
     <>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: process.env.GOOGLE_MAP_API_KEY }}
+        bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_API_KEY }}
         defaultCenter={center}
-        defaultZoom={zoom}
+        defaultZoom={14}
+        onChildClick={(child) => setChildClicked(child)}
       >
         {markers}
       </GoogleMapReact>
@@ -40,7 +41,6 @@ Map.defaultProps = {
     lat: Number(43.653225),
     lng: Number(-79.383186),
   },
-  zoom: 10,
 };
 
 export default Map;

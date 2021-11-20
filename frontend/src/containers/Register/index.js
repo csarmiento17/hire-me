@@ -31,8 +31,8 @@ export default function Register({ opendialog, closedialog }) {
         variables: {
           firstName: formState.firstName,
           lastName: formState.lastName,
-          email: formState.email,
-          password: formState.password,
+          email: formState.regEmail,
+          password: formState.regPassword,
         },
       });
 
@@ -103,8 +103,8 @@ export default function Register({ opendialog, closedialog }) {
             />
             <TextField
               margin="dense"
-              id="email"
-              name="email"
+              id="regEmail"
+              name="regEmail"
               label="Email Address"
               type="email"
               fullWidth
@@ -114,8 +114,8 @@ export default function Register({ opendialog, closedialog }) {
             />
             <TextField
               margin="dense"
-              id="password"
-              name="password"
+              id="regPassword"
+              name="regPassword"
               label="Password"
               type="password"
               fullWidth
