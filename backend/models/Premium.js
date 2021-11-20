@@ -1,4 +1,4 @@
-const { Schema, model, get } = require("mongoose");
+const { Schema, model } = require("mongoose");
 const dateFormat = require('../utils/dateFormat');
 const endOfSubs = require('../utils/endOfSubs');
 
@@ -17,7 +17,6 @@ const premiumSchema = new Schema(
   {
     toJSON: {
       getters: true,
-      setters: true,
       virtuals: true
     }
   }

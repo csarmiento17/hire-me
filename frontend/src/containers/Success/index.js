@@ -9,30 +9,28 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 function Success() {
   
-  // const [addPremium] = useMutation(ADD_PREMIUM);
-  // const { loading, data } = useQuery(QUERY_SUBSCRIPTION_LENGTH);
+  const [addPremium] = useMutation(ADD_PREMIUM);
+  const { data } = useQuery(QUERY_SUBSCRIPTION_LENGTH);
 
-  // useEffect(() => {
-  //   async function saveSubscription() {
-  //     const subsLengthNum = data?.getLengthOfSubscription?.lengthOfSubscription || null;
-  //     console.log(subsLengthNum);
+  const subsLengthNum = data?.getLengthOfSubscription?.lengthOfSubscription;
 
-  //     await addPremium({
-  //       variables: { subsLength: 1 }
-  //     });
+  useEffect(() => {
+    async function saveSubscription() {
+      
+      console.log(subsLengthNum);
+      if(subsLengthNum){
+      await addPremium({
+        variables: { subsLength: subsLengthNum }
+      });
+      }
+      
+      setTimeout(() => {
+        window.location.assign('/');
+      }, 3000);
+    }
 
-  //     setTimeout(() => {
-  //       window.location.assign('/');
-  //     }, 3000);
-  //   }
-
-  //   saveSubscription();
-  // },[addPremium]);
-
-  // temp
-  setTimeout(() => {
-    window.location.assign('/');
-  }, 3000);
+    saveSubscription();
+  },[addPremium, subsLengthNum]);
 
   return (
     <Box className="container">

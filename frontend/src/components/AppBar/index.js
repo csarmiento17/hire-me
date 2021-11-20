@@ -13,6 +13,8 @@ import {
 } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Verified from "@mui/icons-material/Verified";
+import { QUERY_ME } from "../../utils/queries";
+import { useQuery } from "@apollo/client";
 
 // component dependencies
 import Snackbar from "../Snackbar";
@@ -23,16 +25,15 @@ import Auth from "../../utils/auth";
 import Logo from "../../assets/logo.png";
 
 export default function MenuAppBar() {
-  const [auth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [dlgLoginOpen, setDlgLoginOpen] = useState(false);
   const [dlgRegisterOpen, setDlgRegisterOpen] = useState(false);
   const [dlgSubscribeOpen, setDlgSubscribeOpen] = useState(false);
   const [snackOpen, setSnackOpen] = useState(false);
   const history = useHistory();
+  const { data } = useQuery(QUERY_ME);
 
-  // temp premium variable. Get value from user
-  const premium = false;
+  const premium = data?.me.premium || null;
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -84,7 +85,7 @@ export default function MenuAppBar() {
               <Button variant="h6" component="div" onClick={handleContactUs}>
                 Contact Us
               </Button>
-              {auth && (
+              
                 <div>
                   <IconButton
                     size="large"
@@ -104,12 +105,26 @@ export default function MenuAppBar() {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    <MenuItem>Profile</MenuItem>
+                    <MenuItem>
+                      {premium && <Verified fontSize="small" />}
+                      Profile
+                    </MenuItem>
                     <MenuItem onClick={handleSavedJobs}>My Jobs</MenuItem>
+                    {!premium && (
+                      <MenuItem onClick={handleSubscribe}>Subscribe</MenuItem>
+                    )}
+                     <Divider />
                     <MenuItem onClick={logout}>Logout</MenuItem>
                   </Menu>
                 </div>
-              )}
+
+                {dlgSubscribeOpen && (
+                <Subscribe
+                  opendialog={dlgSubscribeOpen}
+                  closedialog={() => setDlgSubscribeOpen(false)}
+                />
+                )}
+             
             </>
           ) : (
             <>
@@ -135,52 +150,12 @@ export default function MenuAppBar() {
                   closedialog={() => setDlgRegisterOpen(false)}
                 />
               )}
-              {dlgSubscribeOpen && (
-                <Subscribe
-                  opendialog={dlgSubscribeOpen}
-                  closedialog={() => setDlgSubscribeOpen(false)}
-                />
-              )}
               {snackOpen && (
                 <Snackbar
                   snackopen={snackOpen}
                   snackclose={() => setSnackOpen(false)}
                   message="User successfully created!"
                 />
-              )}
-
-              {auth && (
-                <div>
-                  <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={handleMenu}
-                    color="inherit"
-                  >
-                    <AccountCircle />
-                  </IconButton>
-                  <Menu
-                    id="menu-appbar"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                  >
-                    <MenuItem>
-                      {premium && <Verified fontSize="small" />}
-                      Profile
-                    </MenuItem>
-                    <MenuItem onClick={handleSavedJobs}>My Jobs</MenuItem>
-                    {!premium && (
-                      <div>
-                        <Divider />
-                        <MenuItem onClick={handleSubscribe}>Subscribe</MenuItem>
-                      </div>
-                    )}
-                  </Menu>
-                </div>
               )}
             </>
           )}
