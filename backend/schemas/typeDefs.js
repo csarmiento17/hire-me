@@ -27,27 +27,18 @@ const typeDefs = gql`
     user: User
   }
 
-  input JobInput{
-    title:String
-    jobDescription:String
-    company:String
-    address:String
-    jobTypes:String
-    coordinates:[String]
-  }
-
   type Query {
     me:User
     user(username: String!): User
-    job(title:String!):Job
-    jobs:[Job]
+    allJobs:[Job]
+    searchedJobs(title:String!):[Job]
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
     register(firstName: String!, lastName:String! email: String!, password: String!): Auth
-    addToSavedJobs(jobData:JobInput!):User
-    addToAppliedJobs(jobData:JobInput!):User
+    addToSavedJobs(savedJobId:ID!):User
+    addToAppliedJobs(appliedJobId:ID!):User
   }
 `;
 
