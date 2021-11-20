@@ -29,3 +29,11 @@ export const QUERY_JOBS = gql`
     }
   }
 `;
+
+export const QUERY_SUBSCRIPTION_LENGTH = gql`
+  query getLengthOfSubscription {
+    getLengthOfSubscription {
+      lengthOfSubscription
+    }
+  }
+`;

@@ -32,6 +32,9 @@ const userSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Job"
     }],
+    lengthOfSubscription: {
+      type: Number
+    },
     premium: {
       type: Schema.Types.ObjectId,
       ref: "Premium"

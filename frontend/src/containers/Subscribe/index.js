@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { loadStripe } from '@stripe/stripe-js';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client';
 import PropTypes from "prop-types";
 
 import Button from "@mui/material/Button";
@@ -16,6 +16,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 
 import { QUERY_SUBSCRIBE } from '../../utils/queries';
+import { ADD_LENGTH_OF_SUBSCRIPTION } from "../../utils/mutations";
 
 // Stripe object using test API key
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
@@ -23,6 +24,7 @@ const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 export default function Subscribe({ opendialog, closedialog }) {
   
   const [formState, setFormState] = useState(0);
+  const [addSubscriptionLength] = useMutation(ADD_LENGTH_OF_SUBSCRIPTION);
   const [getSubscription, { data }] = useLazyQuery(QUERY_SUBSCRIBE);
 
   useEffect(() => {
@@ -35,10 +37,12 @@ export default function Subscribe({ opendialog, closedialog }) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    addSubscriptionLength({
+      variables: { productNum: formState }
+    });
     getSubscription({
       variables: { productNum: formState }
     });
-    console.log(data);
   };
 
   const handleChange = (event) => {

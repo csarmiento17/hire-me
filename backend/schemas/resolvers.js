@@ -8,7 +8,11 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 const resolvers = {
   Query: {
     user: async (parent, { email }) => {
-      return User.findOne({ email }).select("-__v -password");
+      return User.findOne({ email })
+        .select("-__v -password")
+        .populate('savedJobs')
+        .populate('appliedJobs')
+        .populate('premium');
     },
     job: async (parent, { title }) => {
       return Job.findOne({ title }).select("-__v");
@@ -18,9 +22,11 @@ const resolvers = {
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id }).select(
-          "-__v -password"
-        );
+        const userData = await User.findOne({ _id: context.user._id })
+        .select("-__v -password")
+        .populate('savedJobs')
+        .populate('appliedJobs')
+        .populate('premium');
         return userData;
       }
       throw new AuthenticationError("Not logged in");
@@ -74,6 +80,12 @@ const resolvers = {
       
       return { session: session.id };
     },
+    getLengthOfSubscription: async (parent, args, context) => {
+      if (context.user) {
+        return await User.findOne({ _id: context.user._id }).select("-__v -password");
+      }
+      throw new AuthenticationError("Not logged in");
+    },
   },
   Mutation: {
     addToSavedJobs: async (parent, args, context) => {
@@ -116,17 +128,49 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addPremium: async (parent, { expiryDate }, context) => {
+    addLengthOfSubscription: async (parent, { productNum }, context) => {
+      if (context.user){
+        await User.updateOne({ _id: context.user._id }, {
+          lengthOfSubscription: productNum
+        });
+
+        return await User.findOne({ _id: context.user._id }).select("-__v -password");
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    removeLengthOfSubscription: async (parent, args, context) => {
+      if (context.user){
+        await User.updateOne({ _id: context.user._id }, {
+          lengthOfSubscription: null
+        });
+
+        return await User.findOne({ _id: context.user._id }).select("-__v -password");
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    addPremium: async (parent, { subsLength }, context) => {
       if (context.user) {
-        const premium = await Premium.create({ expiryDate });
+        const premium = await Premium.create({ lengthOfSubscription: subsLength });
     
-        await User.findByIdAndUpdate(
+        await User.updateOne(
           { _id: context.user._id },
-          { $push: { premium: premium._id } },
-          { new: true }
+          { premium: premium._id }
         );
     
         return premium;
+      }
+    
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    removePremium: async (parent, args, context) => {
+      if (context.user) {
+    
+        return await User.updateOne(
+          { _id: context.user._id },
+          { premium: null }
+        );
       }
     
       throw new AuthenticationError('You need to be logged in!');

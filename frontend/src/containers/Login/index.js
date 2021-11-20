@@ -22,7 +22,7 @@ export default function Login({ opendialog, closedialog }) {
     event.preventDefault();
     try {
       const mutationResponse = await login({
-        variables: { email: formState.email, password: formState.password },
+        variables: { email: formState.loginEmail, password: formState.loginPassword },
       });
       const token = mutationResponse.data.login.token;
       Auth.login(token);
@@ -70,7 +70,7 @@ export default function Login({ opendialog, closedialog }) {
               autoFocus
               margin="dense"
               id="loginEmail"
-              name="email"
+              name="loginEmail"
               label="Email Address"
               type="email"
               fullWidth
@@ -81,7 +81,7 @@ export default function Login({ opendialog, closedialog }) {
             <TextField
               margin="dense"
               id="loginPassword"
-              name="password"
+              name="loginPassword"
               label="Password"
               type="password"
               fullWidth
