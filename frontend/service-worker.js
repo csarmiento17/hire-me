@@ -2,12 +2,18 @@ const APP_PREFIX = 'HireMe-';
 const VERSION = 'version_01';
 const CACHE_NAME = APP_PREFIX + VERSION;
 const FILES_TO_CACHE = [
-  './index.html',
-  "./js/idb.js",
-  './manifest.json',
-  // '../src/App.css',
-  // '../src//assets/email.jpg',
-  // '../src//assets/logo.jpg',
+  '/',
+  '../public/index.html',
+  '../public/js/idb.js',
+  '../public/manifest.json',
+  '../public/logo512.png',
+  '../public/logo256.png',
+  '../public/logo128.png',
+  '../public/logo64.png',
+  '../src/App.css',
+  '../src/assets/logo.png',
+  '../src/App.js',
+  '../src/containers/Home/index.js',
 ];
 
 // Respond with cached resources
