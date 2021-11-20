@@ -32,6 +32,60 @@ export const REGISTER = gql`
   }
 `;
 
+export const ADDTOSAVEDJOBS = gql`
+mutation addToSavedJobs($savedJobId:ID!) {
+  addToSavedJobs(savedJobId: $savedJobId) {
+    _id
+    email
+    savedJobs {
+      _id
+      title
+      company
+      address
+      jobDescription
+      jobTypes
+      coordinates
+    }
+    appliedJobs {
+      _id
+      title
+      company
+      address
+      jobDescription
+      jobTypes
+      coordinates
+    }
+  }
+}
+`
+
+export const ADDTOAPPLIEDJOBS = gql `
+mutation addToAppliedJobs($appliedJobId:ID!) {
+  addToAppliedJobs(appliedJobId: $appliedJobId) {
+    _id
+    email
+    savedJobs {
+      _id
+      title
+      company
+      address
+      jobDescription
+      jobTypes
+      coordinates
+    }
+    appliedJobs {
+      _id
+      title
+      company
+      address
+      jobDescription
+      jobTypes
+      coordinates
+    }
+  }
+}
+`
+
 export const ADD_LENGTH_OF_SUBSCRIPTION = gql`
   mutation addLengthOfSubscription($productNum: Int!) {
     addLengthOfSubscription(productNum: $productNum) {

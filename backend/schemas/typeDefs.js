@@ -44,17 +44,18 @@ const typeDefs = gql`
   type Query {
     me:User
     user(username: String!): User
+    allJobs:[Job]
+    searchedJobs(title:String!):[Job]
     job(title:String!):Job
     subscribe(productNum: Int!): Subscribe
     getLengthOfSubscription:User
-    jobs:[Job]
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
     register(firstName: String!, lastName:String! email: String!, password: String!): Auth
-    addToSavedJobs(_id:ID!):User
-    addToAppliedJobs(_id:ID!):User
+    addToSavedJobs(savedJobId:ID!):User
+    addToAppliedJobs(appliedJobId:ID!):User
     addLengthOfSubscription(productNum: Int!):User
     removeLengthOfSubscription:User
     addPremium(subsLength: Int!):Premium

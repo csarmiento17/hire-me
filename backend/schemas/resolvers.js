@@ -14,11 +14,11 @@ const resolvers = {
         .populate('appliedJobs')
         .populate('premium');
     },
-    job: async (parent, { title }) => {
-      return Job.findOne({ title }).select("-__v");
-    },
-    jobs: async () => {
+    allJobs: async () => {
       return Job.find().select("-__v");
+    },
+    searchedJobs: async (parent, args) => {
+      return Job.find({ title: { "$regex": args.title, "$options": "i" }}).select("-__v");
     },
     me: async (parent, args, context) => {
       if (context.user) {
@@ -90,18 +90,28 @@ const resolvers = {
   Mutation: {
     addToSavedJobs: async (parent, args, context) => {
       if (context.user) {
-        return await User.findByIdAndUpdate(context.user._id, {
-          $push: { savedJobs: args._id },
-        });
+        let jobId = args.savedJobId
+        const searchedJob = await Job.findOne({_id:jobId}).select("-__v")
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { savedJobs:searchedJob}},
+          { new: true }
+        )
+        return updatedUser;
       }
       throw new AuthenticationError("Not logged in");
     },
 
     addToAppliedJobs: async (parent, args, context) => {
       if (context.user) {
-        return await User.findByIdAndUpdate(context.user._id, {
-          $push: { appliedJobs: args._id },
-        });
+        let jobId = args.appliedJobId
+        const searchedJob = await Job.findOne({_id:jobId}).select("-__v")
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { appliedJobs:searchedJob} },
+          { new: true }
+        )
+        return updatedUser;
       }
       throw new AuthenticationError("Not logged in");
     },

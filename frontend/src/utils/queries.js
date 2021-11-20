@@ -60,13 +60,43 @@ export const QUERY_JOBS = gql`
     jobs {
       title
       company
+      address
       jobDescription
       jobTypes
       coordinates
     }
+    appliedJobsCount
   }
+}
 `;
 
+export const QUERY_SEARCHEDJOBS = gql`
+ query searchedJobs($title: String!) {
+  searchedJobs(title: $title) {
+    _id
+    title
+    company
+    address
+    jobDescription
+    jobTypes
+    coordinates
+  }
+}
+`;
+
+export const QUERY_JOBS = gql`
+ {
+  allJobs {
+    _id
+    title
+    company
+    address
+    jobDescription
+    jobTypes
+    coordinates
+  }
+}
+`
 export const QUERY_SUBSCRIPTION_LENGTH = gql`
   query getLengthOfSubscription {
     getLengthOfSubscription {
