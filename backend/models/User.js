@@ -33,8 +33,8 @@ const userSchema = new Schema(
       ref: "Job"
     }],
     premium: {
-      type: Boolean,
-      default: false
+      type: Schema.Types.ObjectId,
+      ref: "Premium"
     }
   },
   {

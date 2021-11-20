@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Job } = require("../models");
+const { User, Job, Premium } = require("../models");
 const { signToken } = require("../utils/auth");
 
 // import stripe package
@@ -115,6 +115,21 @@ const resolvers = {
 
       const token = signToken(user);
       return { token, user };
+    },
+    addPremium: async (parent, { expiryDate }, context) => {
+      if (context.user) {
+        const premium = await Premium.create({ expiryDate });
+    
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $push: { premium: premium._id } },
+          { new: true }
+        );
+    
+        return premium;
+      }
+    
+      throw new AuthenticationError('You need to be logged in!');
     },
   },
 };

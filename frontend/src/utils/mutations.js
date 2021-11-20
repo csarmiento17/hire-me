@@ -31,3 +31,17 @@ export const REGISTER = gql`
     }
   }
 `;
+
+export const PREMIUM = gql`
+  mutation addPremium($expiryDate: Date!){
+    addPremium(expiryDate: $expiryDate){
+      firstName
+      lastName
+      email
+      premium {
+        startOfSubscription
+        endOfSubscription
+      }
+    }
+  }
+`;
