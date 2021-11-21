@@ -99,7 +99,7 @@ const resolvers = {
         const searchedJob = await Job.findOne({ _id: jobId }).select("-__v");
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $push: { savedJobs: searchedJob } },
+          { $addToSet: { savedJobs: searchedJob } },
           { new: true }
         );
         return updatedUser;

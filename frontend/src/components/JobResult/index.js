@@ -47,7 +47,7 @@ export default function JobResult({ job, selected, refProp }) {
       const {data} = await addToSavedJobs({
         variables: { savedJobId:jobId  }
       });
-      console.log("data", data);
+      console.log("data-addToSaved", data);
     } catch (err) {
       console.log("save job failed", err);
     }
