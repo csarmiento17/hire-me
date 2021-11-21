@@ -8,9 +8,8 @@ const LocationInfo = ({ info, lat, lang }) => {
 
   return (
     <Box className={classes.info}>
-      <Typography>{info.company}</Typography>
-      <Typography>{info.coordinates[0]}</Typography>
-      <Typography>{info.coordinates[1]}</Typography>
+      <Typography variant="subtitle1">{info.company}</Typography>
+      <Typography variant="subtitle2">{info.title}</Typography>
     </Box>
   );
 };

@@ -6,7 +6,6 @@ import {
   Toolbar,
   Button,
   IconButton,
-  Typography,
   MenuItem,
   Menu,
   Divider,
@@ -85,46 +84,45 @@ export default function MenuAppBar() {
               <Button variant="h6" component="div" onClick={handleContactUs}>
                 Contact Us
               </Button>
-              
-                <div>
-                  <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={handleMenu}
-                    color="inherit"
-                  >
-                    <AccountCircle />
-                  </IconButton>
 
-                  <Menu
-                    id="menu-appbar"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                  >
-                    <MenuItem>
-                      {premium && <Verified fontSize="small" />}
-                      Profile
-                    </MenuItem>
-                    <MenuItem onClick={handleSavedJobs}>My Jobs</MenuItem>
-                    {!premium && (
-                      <MenuItem onClick={handleSubscribe}>Subscribe</MenuItem>
-                    )}
-                     <Divider />
-                    <MenuItem onClick={logout}>Logout</MenuItem>
-                  </Menu>
-                </div>
+              <div>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
 
-                {dlgSubscribeOpen && (
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem>
+                    {premium && <Verified fontSize="small" />}
+                    Profile
+                  </MenuItem>
+                  <MenuItem onClick={handleSavedJobs}>My Jobs</MenuItem>
+                  {!premium && (
+                    <MenuItem onClick={handleSubscribe}>Subscribe</MenuItem>
+                  )}
+                  <Divider />
+                  <MenuItem onClick={logout}>Logout</MenuItem>
+                </Menu>
+              </div>
+
+              {dlgSubscribeOpen && (
                 <Subscribe
                   opendialog={dlgSubscribeOpen}
                   closedialog={() => setDlgSubscribeOpen(false)}
                 />
-                )}
-             
+              )}
             </>
           ) : (
             <>
