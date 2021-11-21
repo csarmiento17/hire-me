@@ -20,6 +20,7 @@ export default function JobResult({ job, selected, refProp }) {
   const [searchedJobs, setSearchedJobs] = useState([]);
 
   const [addToAppliedJobs, { error }] = useMutation(ADDTOAPPLIEDJOBS);
+  const [disable, setDisable] = useState(false);
 
   const toggleReadMore = () => {
     setIsReadMore(!isReadMore);
@@ -65,7 +66,8 @@ export default function JobResult({ job, selected, refProp }) {
         <Grid container>
           <Grid item xs={12}>
             <Button fullWidth variant="outlined" style={{ marginBottom: 5 }}
-            onClick={() => handleApplyJob(job._id)}>           
+            disabled={disable}
+            onClick={() => handleApplyJob(job._id) && setDisable(true)}>           
               Apply          
             </Button>
           </Grid>

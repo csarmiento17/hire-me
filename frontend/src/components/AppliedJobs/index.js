@@ -59,14 +59,14 @@ export default function AppliedJobs() {
                             {job.company}
                         </Typography>
                         <Chip label={job.jobTypes} variant="outlined"></Chip>
-                        <Typography variant="subtitle2" component="div" sx={{ marginTop: 2 }}>
+                        {/* <Typography variant="subtitle2" component="div" sx={{ marginTop: 2 }}>
                             {isReadMore ? job.jobDescription.slice(0, 150) : job.jobDescription}
-                            {/* <IconButton size="small">
+                            <IconButton size="small">
                                 <span onClick={toggleReadMore} style={{ color: "blue" }}>
                                     {isReadMore ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
                                 </span>
-                            </IconButton> */}
-                        </Typography>
+                            </IconButton>
+                        </Typography> */}
                     </CardContent>
                 </Card>
                         );
