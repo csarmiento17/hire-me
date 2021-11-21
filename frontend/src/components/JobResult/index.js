@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -17,7 +17,6 @@ import { useMutation } from "@apollo/client";
 
 export default function JobResult({ job, selected, refProp }) {
   const [isReadMore, setIsReadMore] = useState(true);
-  const [searchedJobs, setSearchedJobs] = useState([]);
 
   const [addToAppliedJobs, { error }] = useMutation(ADDTOAPPLIEDJOBS);
   const [disable, setDisable] = useState(false);
@@ -66,7 +65,7 @@ export default function JobResult({ job, selected, refProp }) {
         <Grid container>
           <Grid item xs={12}>
             <Button fullWidth variant="outlined" style={{ marginBottom: 5 }}
-            disabled={disable}
+            disabled={disable.some((savedBookId) => savedBookId === book.bookId)}
             onClick={() => handleApplyJob(job._id) && setDisable(true)}>           
               Apply          
             </Button>
