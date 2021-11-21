@@ -65,7 +65,7 @@ export default function JobResult({ job, selected, refProp }) {
         <Grid container>
           <Grid item xs={12}>
             <Button fullWidth variant="outlined" style={{ marginBottom: 5 }}
-            disabled={disable.some((savedBookId) => savedBookId === book.bookId)}
+            disabled={disable}
             onClick={() => handleApplyJob(job._id) && setDisable(true)}>           
               Apply          
             </Button>
