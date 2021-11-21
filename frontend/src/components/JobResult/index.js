@@ -11,23 +11,43 @@ import {
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import { ADDTOSAVEDJOBS } from "../utils/mutations";
-import { ADDTOAPPLIEDJOBS } from "../utils/mutations";
 
-// create state to hold saved bookId values
-const [savedJobIds, setSavedJobIds] = useState(getSavedJobIds());
-const [addToSavedJobs] = useMutation(ADDTOSAVEDJOBS);
+import { useMutation } from "@apollo/react-hooks";
+import Auth from "../../utils/auth";
 
-// create state to hold applied bookId values
-const [appliedJobIds, setAppliedJobIds] = useState(getAppliedJobIds());
-const [addToAppliedJobs] = useMutation(ADDTOAPPLIEDJOBS);
-
-// set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
-// learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
-
+import { ADDTOSAVEDJOBS } from "../../utils/mutations.js";
+import { ADDTOAPPLIEDJOBS } from "../../utils/mutations.js";
+import { QUERY_JOBS, QUERY_ME } from '../../utils/queries';
 
 export default function JobResult({ job, selected, refProp }) {
   const [isReadMore, setIsReadMore] = useState(true);
+
+  // create state to hold saved bookId values
+  const [savedJobIds, setSavedJobIds] = useState('');
+  const [addToSavedJobs, { error }] = useMutation(ADDTOSAVEDJOBS, {
+    update(cache, { data: { addtoSavedJobs } }) {
+      //update me object's cache, appending new thought to the end of the array
+      const { me } = cache.readQuery({ query: QUERY_ME });
+      cache.writeQuery({
+        query: QUERY_ME,
+        data: { me: { ...me, savedJobs: [...me.savedJobs, addToSavedJobs] } }
+      });
+    }
+  });
+
+  // create state to hold applied bookId values
+  const [appliedJobIds, setAppliedJobIds] = useState('');
+  const [addToAppliedJobs] = useMutation(ADDTOAPPLIEDJOBS, {
+    update(cache, { data: { addtoSavedJobs } }) {
+      //update me object's cache, appending new thought to the end of the array
+      const { me } = cache.readQuery({ query: QUERY_ME });
+      cache.writeQuery({
+        query: QUERY_ME,
+        data: { me: { ...me, applieddJobs: [...me.applieddJobs, addToAppliedJobs] } }
+      });
+    }
+  });
+
   const toggleReadMore = () => {
     setIsReadMore(!isReadMore);
   };
@@ -36,29 +56,15 @@ export default function JobResult({ job, selected, refProp }) {
     refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 
 
-  useEffect(() => {
-    return () => saveJobIds(savedJobIds);
-  });
-
   // create function to handle saving a book to our database
   const handleApplyJob = async (_id) => {
-    // find the book in `searchedBooks` state by the matching id
-    const jobToApply = jobs.find((job) => job._id === _id);
-
-    // get token
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-    if (!token) {
-      return false;
-    }
-
     try {
       const { data } = await addToAppliedJobs({
-        variables: { job: jobToApply },
+        variables: { job: _id },
       });
 
       // if book successfully saves to user's account, save book id to state
-      setAppliedJobIds([...appliedJobIds, jobToApply._id]);
+      setAppliedJobIds([...appliedJobIds, _id]);
     } catch (err) {
       console.error(err);
     }
@@ -67,23 +73,13 @@ export default function JobResult({ job, selected, refProp }) {
 
   // create function to handle saving a job to our database
   const handleSaveJob = async (_id) => {
-    // find the book in `searchedBooks` state by the matching id
-    const jobToSave = jobs.find((job) => job._id === _id);
-
-    // get token
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-    if (!token) {
-      return false;
-    }
-
     try {
       const { data } = await addToSavedJobs({
-        variables: { job: jobToSave },
+        variables: { job: _id },
       });
 
       // if book successfully saves to user's account, save book id to state
-      setSavedJobIds([...savedJobIds, jobToSave._id]);
+      setSavedJobIds([...savedJobIds, _id]);
     } catch (err) {
       console.error(err);
     }
@@ -117,8 +113,8 @@ export default function JobResult({ job, selected, refProp }) {
               )}
               className="btn-block btn-info"
               onClick={() => handleApplyJob(job._id)}
-                    >
-              {appliedBookIds?.some(
+            >
+              {appliedJobIds?.some(
                 (appliedJobId) => appliedJobId === job._id
               )
                 ? "You have already applied to this job!"
@@ -132,8 +128,8 @@ export default function JobResult({ job, selected, refProp }) {
               )}
               className="btn-block btn-info"
               onClick={() => handleSaveJob(job._id)}
-                    >
-              {savedBookIds?.some(
+            >
+              {savedJobIds?.some(
                 (savedJobId) => savedJobId === job._id
               )
                 ? "This job has already been saved!"
