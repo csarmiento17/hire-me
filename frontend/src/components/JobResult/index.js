@@ -73,8 +73,9 @@ export default function JobResult({ job, selected, refProp }) {
 
   // create function to handle saving a job to our database
   const handleSaveJob = async (_id) => {
+    console.log(_id);
     try {
-      const { data } = await addToSavedJobs({
+      await addToSavedJobs({
         variables: { job: _id },
       });
 
@@ -108,32 +109,18 @@ export default function JobResult({ job, selected, refProp }) {
         <Grid container>
           <Grid item xs={12}>
             <Button fullWidth variant="outlined" style={{ marginBottom: 5 }}
-              disabled={appliedJobIds?.some(
-                (appliedJobId) => appliedJobId === job._id
-              )}
+              
               className="btn-block btn-info"
-              onClick={() => handleApplyJob(job._id)}
-            >
-              {appliedJobIds?.some(
-                (appliedJobId) => appliedJobId === job._id
-              )
-                ? "You have already applied to this job!"
-                : " Apply Job"}
+              onClick={() => handleApplyJob(job.title)}
+            > APPLY
             </Button>
           </Grid>
           <Grid item xs={12}>
             <Button fullWidth variant="outlined"
-              disabled={savedJobIds?.some(
-                (savedJobId) => savedJobId === job._id
-              )}
+              
               className="btn-block btn-info"
-              onClick={() => handleSaveJob(job._id)}
-            >
-              {savedJobIds?.some(
-                (savedJobId) => savedJobId === job._id
-              )
-                ? "This job has already been saved!"
-                : " Save Job"}
+              onClick={() => handleSaveJob(job.title)}
+            > SAVE
             </Button>
           </Grid>
         </Grid>

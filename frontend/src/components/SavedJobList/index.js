@@ -1,45 +1,38 @@
 import React, { useState, useEffect, createRef } from "react";
-import { Grid, Paper, Typography } from "@mui/material";
-import SaveJob from "../SaveJob";
-const List = ({ jobs, childClicked }) => {
-  const [elRefs, setElRefs] = useState([]);
+import {
+  Card,
+  CardContent,
+  CardActions,
+  Paper,
+  Typography,
+  Grid,
+  Chip,
+  Button,
+  IconButton,
+} from "@mui/material";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 
-  useEffect(() => {
-    setElRefs((refs) =>
-      Array(jobs.length)
-        .fill()
-        .map((_, i) => refs[i] || createRef())
-    );
-  }, [jobs]);
+import { useMutation } from "@apollo/react-hooks";
+import Auth from "../../utils/auth";
+import SavedJob from "../SavedJob";
+
+const SavedJobList = ({ jobs }) => {
 
   return (
     <>
-      {jobs.length === 0 ? (
-        <Paper variant="outlined" sx={{ height: "70vh", marginRight: 3 }}>
-          <Typography
-            variant="h5"
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            No saved jobs found
-          </Typography>
-        </Paper>
-      ) : (
+      {
         <Grid container spacing={3} sx={{ padding: 3 }}>
-          {jobs?.map((job, i) => (
-            <Grid item ref={elRefs[i]} key={i} xs={12}>
-              <SaveJob
-                selected={Number(childClicked) === i}
-                refProp={elRefs[i]}
+          {jobs?.map((job) => (
+            <Grid item xs={12}>
+              <SavedJob
                 job={job}
               />
             </Grid>
           ))}
         </Grid>
-      )}
+      }
     </>
   );
 };
-export default List;
+export default SavedJobList;
