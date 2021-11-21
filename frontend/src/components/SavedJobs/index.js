@@ -63,10 +63,10 @@ export default function SavedJobs() {
                         ? `Viewing ${userData.savedJobs.length} saved ${userData.savedJobs.length === 1 ? 'job' : 'jobs'}:`
                         : 'You have no saved jobs!'}
                 </h2>
-                <cardColumns>
+                <Container>
                     {userData.savedJobs?.map((job) => {
                         return (
-                        <Card sx={{ marginTop: 2 }} elevation={6}>
+                        <Card sx={{ marginTop: 2 }} elevation={6} key={job._id}>
                     <CardContent>
                         <Typography variant="h6" component="div">
                             {job.title}
@@ -96,7 +96,7 @@ export default function SavedJobs() {
                 </Card>
                         );
                     })}
-                </cardColumns>
+                </Container>
             </Container>
         </>
     );
