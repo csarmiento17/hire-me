@@ -110,7 +110,6 @@ const resolvers = {
     removeSavedJobs: async (parent, args, context) => {
       if (context.user) {
         let jobId = args.savedJobId;
-        // const searchedJob = await Job.findOne({ _id: jobId }).select("-__v");
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { savedJobs: {_id:jobId} } },
