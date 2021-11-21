@@ -55,6 +55,8 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     register(firstName: String!, lastName:String! email: String!, password: String!): Auth
     addToSavedJobs(savedJobId:ID!):User
+    removeSavedJobs(savedJobId:ID!):User
+    removeAppliedJobs(savedJobId:ID!):User
     addToAppliedJobs(appliedJobId:ID!):User
     addLengthOfSubscription(productNum: Int!):User
     removeLengthOfSubscription:User
