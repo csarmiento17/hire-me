@@ -24,25 +24,15 @@ const userSchema = new Schema(
       required: true,
       minlength: 5,
     },
-    savedJobs: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Job",
-      },
-    ],
-    appliedJobs: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Job",
-      },
-    ],
+    savedJobs: [Job.schema],
+    appliedJobs: [Job.schema],
     lengthOfSubscription: {
-      type: Number,
+      type: Number
     },
     premium: {
       type: Schema.Types.ObjectId,
-      ref: "Premium",
-    },
+      ref: "Premium"
+    }
   },
   {
     toJSON: {
@@ -65,11 +55,11 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-userSchema.virtual("savedJobsCount").get(function () {
+userSchema.virtual('savedJobsCount').get(function () {
   return this.savedJobs.length;
 });
 
-userSchema.virtual("appliedJobsCount").get(function () {
+userSchema.virtual('appliedJobsCount').get(function () {
   return this.appliedJobs.length;
 });
 
