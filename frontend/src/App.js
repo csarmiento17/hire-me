@@ -42,7 +42,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/contact-us" component={ContactUs} />
-            <Route exact path="/saved-jobs" component={SavedJobs} />
+            <Route exact path="/saved-jobs" component={MyJobs} />
             <Route exact path="/success" component={Success} />
             <Route component={PageNotFound} />
           </Switch>
