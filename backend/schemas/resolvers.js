@@ -99,13 +99,28 @@ const resolvers = {
         const searchedJob = await Job.findOne({ _id: jobId }).select("-__v");
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { savedJobs: searchedJob } },
+          { $push: { savedJobs: searchedJob } },
           { new: true }
         );
         return updatedUser;
       }
       throw new AuthenticationError("Not logged in");
     },
+
+    removeSavedJobs: async (parent, args, context) => {
+      if (context.user) {
+        let jobId = args.savedJobId;
+        // const searchedJob = await Job.findOne({ _id: jobId }).select("-__v");
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { savedJobs: {_id:jobId} } },
+          { new: true }
+        );
+        return updatedUser;
+      }
+      throw new AuthenticationError("Not logged in");
+    },
+
 
     addToAppliedJobs: async (parent, args, context) => {
       if (context.user) {
