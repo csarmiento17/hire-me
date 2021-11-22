@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createRef } from "react";
-import { Grid, Box, Typography } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 import JobResult from "../JobResult";
+
 const List = ({ jobs, childClicked }) => {
   const [elRefs, setElRefs] = useState([]);
 
@@ -15,7 +16,17 @@ const List = ({ jobs, childClicked }) => {
   return (
     <>
       {jobs.length === 0 ? (
-        <Typography>No jobs found</Typography>
+        <Paper variant="outlined" sx={{ height: "70vh", marginRight: 3 }}>
+          <Typography
+            variant="h5"
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            No jobs found
+          </Typography>
+        </Paper>
       ) : (
         <Grid container spacing={3} sx={{ padding: 3 }}>
           {jobs?.map((job, i) => (
