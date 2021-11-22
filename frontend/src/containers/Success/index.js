@@ -16,8 +16,7 @@ function Success() {
 
   useEffect(() => {
     async function saveSubscription() {
-      
-      console.log(subsLengthNum);
+   
       if(subsLengthNum){
       await addPremium({
         variables: { subsLength: subsLengthNum }
@@ -39,7 +38,7 @@ function Success() {
         spacing={2}
         sx={{ justifyContent: "center", marginTop: "1em" }}
       >
-        <Paper elevation={2} sx={{ p: 5, bgcolor: "success.main", width: "50%" }}>
+        <Paper elevation={2} sx={{ p: 5, background: "primary", width: "50%" }}>
           <Box sx={{ display: "flex", flexDirection: "column", color: "white"}}>
             <div className="successContent"><CheckCircleOutlineIcon sx={{ fontSize: 65 }} /></div>
             <div className="successContent"><h1 className="successHeader">Success!</h1></div>

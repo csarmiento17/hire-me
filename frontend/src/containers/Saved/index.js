@@ -16,8 +16,6 @@ export default function IconLabelTabs() {
   };
 
 
-  const SavedBooks = () => {
-
   return (
     <Box className="container">
       <Tabs
@@ -33,7 +31,7 @@ export default function IconLabelTabs() {
     </Box>
   );
   }
-}
+
 
 
 
