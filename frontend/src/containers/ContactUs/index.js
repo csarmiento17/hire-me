@@ -2,8 +2,6 @@ import React, { useState, useRef } from "react";
 import emailjs from "emailjs-com";
 import { Box, Grid, TextField, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import emailImg from "../../assets/email.jpg";
-import SendEmailImg from "../../assets/send-email.svg";
 import Snackbars from "../../components/Snackbar";
 
 const useStyles = makeStyles((theme) => ({
