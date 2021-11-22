@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createRef } from "react";
 import { Grid, Paper, Typography } from "@mui/material";
 import JobResult from "../JobResult";
+
 const List = ({ jobs, childClicked }) => {
   const [elRefs, setElRefs] = useState([]);
 

@@ -9,6 +9,7 @@ import {
   MenuItem,
   Menu,
   Divider,
+  Typography,
 } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Verified from "@mui/icons-material/Verified";
@@ -77,7 +78,9 @@ export default function MenuAppBar() {
               style={{ width: "50px", height: "50px" }}
             />
           </IconButton>
-          <Box sx={{ flexGrow: 1 }} />
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Hire Me
+          </Typography>
 
           {Auth.loggedIn() ? (
             <>
