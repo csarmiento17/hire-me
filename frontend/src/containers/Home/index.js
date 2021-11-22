@@ -70,7 +70,7 @@ const Home = () => {
             <List jobs={jobs} childClicked={childClicked} />
           )}
         </Grid>
-        {/*
+
         <Grid
           item
           xs={12}
@@ -87,7 +87,7 @@ const Home = () => {
             <Map places={jobs} setChildClicked={setChildClicked} />
           )}
         </Grid>
-        */}
+
         {err && (
           <Snackbar
             snackopen={err}
