@@ -24,18 +24,8 @@ const userSchema = new Schema(
       required: true,
       minlength: 5,
     },
-<<<<<<< HEAD
     savedJobs: [Job.schema],
-    appliedJobs: [Job.schema]
-=======
-    savedJobs: [{
-      type: Schema.Types.ObjectId,
-      ref: "Job"
-    }],
-    appliedJobs: [{
-      type: Schema.Types.ObjectId,
-      ref: "Job"
-    }],
+    appliedJobs: [Job.schema],
     lengthOfSubscription: {
       type: Number
     },
@@ -43,7 +33,6 @@ const userSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Premium"
     }
->>>>>>> develop
   },
   {
     toJSON: {

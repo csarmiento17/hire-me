@@ -18,15 +18,7 @@ const Map = ({ center, places, setChildClicked }) => {
         lat={item.coordinates[0]}
         lng={item.coordinates[1]}
         onClick={(e) => handlePinInfo(e, item)}
-      >
-        {locInfo && (
-          <LocationInfo
-            info={locInfo}
-            lat={item.coordinates[0]}
-            lng={item.coordinates[1]}
-          />
-        )}
-      </Marker>
+      ></Marker>
     );
   });
   return (
@@ -39,6 +31,7 @@ const Map = ({ center, places, setChildClicked }) => {
       >
         {markers}
       </GoogleMapReact>
+      {locInfo && <LocationInfo info={locInfo} />}
     </>
   );
 };

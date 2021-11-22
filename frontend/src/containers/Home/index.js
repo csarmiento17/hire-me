@@ -1,21 +1,33 @@
-import React, { useState, useEffect } from "react";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
+import React, { useState } from "react";
+import { useLazyQuery } from "@apollo/react-hooks";
+import { Box, Button, TextField, Grid } from "@mui/material";
+
 //component dependencies
 import List from "../../components/List";
 import Map from "../../components/Map";
 import Spinner from "../../components/Spinner";
+import Snackbar from "../../components/Snackbar";
 //queries and mutations
-import { useQuery } from "@apollo/client";
-import { QUERY_JOBS } from "../../utils/queries";
+import { QUERY_SEARCHEDJOBS } from "../../utils/queries";
 
 const Home = () => {
   const [childClicked, setChildClicked] = useState(null);
-  const { loading, data } = useQuery(QUERY_JOBS);
-  const jobs = data?.jobs || [];
+  const [searchJob, setSearchJob] = useState(null);
+  const [searchedJobs, { data, loading }] = useLazyQuery(QUERY_SEARCHEDJOBS);
+  const [err, setErr] = useState(false);
 
+  const jobs = data?.searchedJobs || [];
+
+  const handleFindJobs = (e) => {
+    e.preventDefault();
+    if (!searchJob) {
+      setErr(true);
+      return;
+    }
+    searchedJobs({
+      variables: { title: searchJob },
+    });
+  };
   return (
     <Box className="container">
       <Grid
@@ -37,9 +49,14 @@ const Home = () => {
             id="outlined-search"
             label="Search for Job title"
             type="search"
+            onChange={(e) => setSearchJob(e.target.value)}
           />
           {/* <TextField id="outlined-search" label="location" type="search" />*/}
-          <Button variant="contained" sx={{ margin: 1 }}>
+          <Button
+            variant="contained"
+            sx={{ margin: 1 }}
+            onClick={(e) => handleFindJobs(e)}
+          >
             Find jobs
           </Button>
         </Box>
@@ -53,9 +70,11 @@ const Home = () => {
             <List jobs={jobs} childClicked={childClicked} />
           )}
         </Grid>
-        {/*  <Grid
+        {/*
+        <Grid
           item
-          xs={8}
+          xs={12}
+          sm={8}
           sx={{
             display: { xs: "none", sm: "block" },
             width: "60vw",
@@ -68,7 +87,14 @@ const Home = () => {
             <Map places={jobs} setChildClicked={setChildClicked} />
           )}
         </Grid>
-            */}
+        */}
+        {err && (
+          <Snackbar
+            snackopen={err}
+            snackclose={() => setErr(false)}
+            message="Please enter a job title to search"
+          />
+        )}
       </Grid>
     </Box>
   );
