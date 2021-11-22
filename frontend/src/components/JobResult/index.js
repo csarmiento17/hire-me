@@ -11,18 +11,19 @@ import {
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import {ADDTOSAVEDJOBS} from "../../../src/utils/mutations";
-import { useMutation } from '@apollo/client';
-import Auth from '../../../src/utils/auth';
+import { ADDTOAPPLIEDJOBS, ADDTOSAVEDJOBS } from "../../../src/utils/mutations";
+import { useMutation } from "@apollo/client";
+import Auth from "../../../src/utils/auth";
 import Snackbar from "../../components/Snackbar";
 
-
-
 export default function JobResult({ job, selected, refProp }) {
-
-  const [addToSavedJobs] = useMutation(ADDTOSAVEDJOBS)
+  const [addToSavedJobs] = useMutation(ADDTOSAVEDJOBS);
   const [err, setErr] = useState(false);
   const [isReadMore, setIsReadMore] = useState(true);
+
+  const [addToAppliedJobs, { error }] = useMutation(ADDTOAPPLIEDJOBS);
+  const [disable, setDisable] = useState(false);
+
   const toggleReadMore = () => {
     setIsReadMore(!isReadMore);
   };
@@ -30,22 +31,28 @@ export default function JobResult({ job, selected, refProp }) {
   if (selected)
     refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 
+  const handleApplyJob = async (jobId) => {
+    try {
+      await addToAppliedJobs({
+        variables: { appliedJobId: jobId },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
   // create function to handle saving a book to our database
   const handleSaveJob = async (jobId) => {
-
-    console.log("bookId", jobId);
-
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
       setErr(true);
       return false;
-    };
+    }
 
     try {
-      const {data} = await addToSavedJobs({
-        variables: { savedJobId:jobId  }
+      const { data } = await addToSavedJobs({
+        variables: { savedJobId: jobId },
       });
       console.log("data-addToSaved", data);
     } catch (err) {
@@ -75,12 +82,22 @@ export default function JobResult({ job, selected, refProp }) {
       <CardActions>
         <Grid container>
           <Grid item xs={12}>
-            <Button fullWidth variant="outlined" style={{ marginBottom: 5 }}>
+            <Button
+              fullWidth
+              variant="outlined"
+              style={{ marginBottom: 5 }}
+              disabled={disable}
+              onClick={() => handleApplyJob(job._id) && setDisable(true)}
+            >
               Apply
             </Button>
           </Grid>
           <Grid item xs={12}>
-            <Button fullWidth variant="outlined" onClick={() => handleSaveJob(job._id)}>
+            <Button
+              fullWidth
+              variant="outlined"
+              onClick={() => handleSaveJob(job._id)}
+            >
               Save Job
             </Button>
           </Grid>
@@ -88,12 +105,12 @@ export default function JobResult({ job, selected, refProp }) {
       </CardActions>
 
       {err && (
-          <Snackbar
-            snackopen={err}
-            snackclose={() => setErr(false)}
-            message="Please log in to save this job!"
-          />
-        )}
+        <Snackbar
+          snackopen={err}
+          snackclose={() => setErr(false)}
+          message="Please log in to save this job!"
+        />
+      )}
     </Card>
   );
 }
