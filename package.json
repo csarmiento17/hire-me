@@ -9,8 +9,7 @@
     "dev": "concurrently \"cd backend && npm run watch\" \"cd frontend && npm start\"",
     "install": "cd backend && npm i && cd ../frontend && npm i",
     "seed": "cd backend && npm run seed",
-    "build": "cd frontend && npm run build",
-    
+    "build": "cd frontend && npm run build"
   },
   "keywords": [],
   "author": "",
