@@ -7,7 +7,7 @@ import SavedJobs from "../../components/SavedJobs";
 export default function IconLabelTabs() {
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (newValue) => {
     setValue(newValue);
   };
 
@@ -21,7 +21,7 @@ export default function IconLabelTabs() {
         <Tab icon={<FavoriteIcon />} label="Saved Jobs" />
         <Tab icon={<AccessTimeFilledIcon />} label="Applied Jobs" />
       </Tabs>
-      <SavedJobs/>
+      <SavedJobs />
     </Box>
   );
 }
