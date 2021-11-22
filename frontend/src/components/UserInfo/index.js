@@ -44,14 +44,26 @@ export default function UserInfo() {
               <Card sx={{ marginTop: 2 }} elevation={6} key={userData._id}>
                 <CardContent>
                   <Typography variant="h6" component="div">
-                    {userData.firstName} 
+                    FIRST NAME   
                   </Typography>
+                  <Typography variant="subtitle1" component="div">
+                    {userData.firstName}
+                  </Typography>
+
                   <Typography variant="h6" component="div">
+                    LAST NAME  
+                  </Typography>
+                  <Typography variant="subtitle1" component="div">
                     {userData.lastName} 
+                  </Typography>
+
+                  <Typography variant="h6" component="div">
+                    EMAIL 
                   </Typography>
                   <Typography variant="subtitle1" component="div">
                     {userData.email}
                   </Typography>
+                  
                   <Typography variant="subtitle1" component="div">
                     Number of Saved Jobs 
                     <Chip 
@@ -65,9 +77,29 @@ export default function UserInfo() {
                         label={userData.appliedJobsCount} variant="outlined">
                     </Chip>
                   </Typography> 
-                  
-                  <Typography variant="subtitle2" component="div" sx={{ marginTop: 2 }}>  
-                  </Typography>
+
+                  <Typography variant="subtitle1" component="div">
+                    
+                    SUBSCRIPTION
+                  </Typography> 
+                  {/* <Typography variant="subtitle1" component="div">
+                    Start of Subscription
+                    <Chip 
+                        label={userData.premium.startOfSubscription} variant="outlined">
+                    </Chip>
+                  </Typography>  */}
+                  <Typography variant="subtitle1" component="div">
+                    Length of Subscription
+                      <Chip 
+                        label={userData.lengthtOfSubscription} variant="outlined">
+                      </Chip>
+                  </Typography> 
+                  {/* <Typography variant="subtitle1" component="div">
+                    End of Subscription
+                      <Chip 
+                        label={userData.premium.endOfSubscription} variant="outlined">
+                      </Chip>
+                  </Typography>  */}
                 </CardContent>
               </Card>
         </Container>
