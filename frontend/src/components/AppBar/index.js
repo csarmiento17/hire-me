@@ -63,6 +63,10 @@ export default function MenuAppBar() {
     history.push("/contact-us");
   };
 
+  const handleProfile = () => {
+    history.push("/profile");
+  };
+
   const handleSavedJobs = () => {
     history.push("/saved-jobs");
   };
@@ -107,10 +111,7 @@ export default function MenuAppBar() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem>
-                    {premium && <Verified fontSize="small" />}
-                    Profile
-                  </MenuItem>
+                  <MenuItem onClick={handleProfile}>{premium && <Verified fontSize="small" />}Profile</MenuItem>
                   <MenuItem onClick={handleSavedJobs}>My Jobs</MenuItem>
                   {!premium && (
                     <MenuItem onClick={handleSubscribe}>Subscribe</MenuItem>

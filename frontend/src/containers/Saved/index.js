@@ -5,6 +5,8 @@ import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import AppliedJobs from "../../components/AppliedJobs";
 import SavedJobs from "../../components/SavedJobs";
 
+
+
 export default function IconLabelTabs() {
   const [tab, setTab] = useState(0);
 
@@ -12,6 +14,7 @@ export default function IconLabelTabs() {
     e.preventDefault();
     setTab(newValue);
   };
+
 
   return (
     <Box className="container">
@@ -27,4 +30,9 @@ export default function IconLabelTabs() {
       {tab === 1 && <AppliedJobs />}
     </Box>
   );
-}
+  }
+
+
+
+
+
