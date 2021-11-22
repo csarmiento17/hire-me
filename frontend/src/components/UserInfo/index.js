@@ -52,8 +52,20 @@ export default function UserInfo() {
                   <Typography variant="subtitle1" component="div">
                     {userData.email}
                   </Typography>
-                  <Chip label={userData.savedJobsCount} variant="outlined"></Chip>
-                  <Chip label={userData.appliedJobsCount} variant="outlined"></Chip>
+                  <Typography variant="subtitle1" component="div">
+                    Number of Saved Jobs 
+                    <Chip 
+                        label={userData.savedJobsCount} variant="outlined">
+                    </Chip>
+                  </Typography>
+                  
+                  <Typography variant="subtitle1" component="div">
+                    Number of Applied Jobs 
+                    <Chip 
+                        label={userData.appliedJobsCount} variant="outlined">
+                    </Chip>
+                  </Typography> 
+                  
                   <Typography variant="subtitle2" component="div" sx={{ marginTop: 2 }}>  
                   </Typography>
                 </CardContent>
