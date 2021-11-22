@@ -10,7 +10,7 @@
     "install": "cd backend && npm i && cd ../frontend && npm i",
     "seed": "cd backend && npm run seed",
     "build": "cd frontend && npm run build",
-    "heroku-postbuild": "ng build --prod"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "",
