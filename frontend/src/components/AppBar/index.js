@@ -33,7 +33,7 @@ export default function MenuAppBar() {
   const history = useHistory();
   const { data } = useQuery(QUERY_ME);
 
-  const premium = data?.me.premium || null;
+  const premium = data?.me?.premium || null;
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
