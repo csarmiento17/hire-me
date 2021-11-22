@@ -7,6 +7,7 @@ import SavedJobs from "../../components/SavedJobs";
 
 export default function IconLabelTabs() {
   const [tab, setTab] = useState(0);
+
   const handleChange = (e, newValue) => {
     e.preventDefault();
     setTab(newValue);

@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  Card,
-  CardContent,
-  Typography,
-  Chip,
-  IconButton,
-  Container,
-} from "@mui/material";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import { Card, CardContent, Typography, Chip, Container } from "@mui/material";
+
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
 // import { useLazyQuery } from "@apollo/react-hooks";
@@ -16,11 +8,6 @@ import { QUERY_ME } from "../../utils/queries";
 export default function AppliedJobs() {
   const { data, loading, refetch } = useQuery(QUERY_ME);
   const [userData, setUserData] = useState(data?.me || {});
-
-  const [isReadMore, setIsReadMore] = useState(true);
-  const toggleReadMore = () => {
-    setIsReadMore(!isReadMore);
-  };
 
   useEffect(() => {
     data?.me?.savedJobs && setUserData(data?.me);
