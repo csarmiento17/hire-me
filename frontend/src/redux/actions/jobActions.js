@@ -1,26 +1,36 @@
 import {
-  JOB_SEARCH_REQUEST,
-  JOB_SEARCH_SUCCESS,
-  JOB_SEARCH_ERROR,
+  APPLY_JOB_REQUEST,
+  APPLY_JOB_SUCCESS,
+  APPLY_JOB_ERROR,
+  GET_ALL_JOB,
 } from "./../constants";
 
-export function jobSearchRequest(search) {
+export function applyJobRequest(data) {
+  console.log("Action applyJobRequest ");
   return {
-    type: JOB_SEARCH_REQUEST,
-    search,
-  };
-}
-
-export function jobSearchSuccess(data) {
-  return {
-    type: JOB_SEARCH_SUCCESS,
+    type: APPLY_JOB_REQUEST,
     payload: data,
   };
 }
 
-export function jobSearchError(data) {
+export function applyJobSuccess(data) {
   return {
-    type: JOB_SEARCH_ERROR,
+    type: APPLY_JOB_SUCCESS,
+    payload: data,
+  };
+}
+
+export function applyJobError(data) {
+  return {
+    type: APPLY_JOB_ERROR,
+    payload: data,
+  };
+}
+
+export function getAllJob(data) {
+  console.log("Action get all job ", data);
+  return {
+    type: GET_ALL_JOB,
     payload: data,
   };
 }
