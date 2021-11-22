@@ -8,27 +8,39 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-import { LOGIN } from "../../utils/mutations";
+import { REGISTER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
-// componend dependencies
+//component Dependencies
 import Snackbar from "../../components/Snackbar";
 
-export default function Login({ opendialog, closedialog }) {
-  const [formState, setFormState] = useState({ email: "", password: "" });
-  const [login, { error }] = useMutation(LOGIN);
-  const [result, setResult] = useState(false);
+export default function Register({ opendialog, closedialog }) {
+  const [formState, setFormState] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+  const [register] = useMutation(REGISTER);
   const [err, setErr] = useState(false);
+  const [result, setResult] = useState(false);
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
     try {
-      const mutationResponse = await login({
-        variables: { email: formState.loginEmail, password: formState.loginPassword },
+      const { data } = await register({
+        variables: {
+          firstName: formState.firstName,
+          lastName: formState.lastName,
+          email: formState.regEmail,
+          password: formState.regPassword,
+        },
       });
-      const token = mutationResponse.data.login.token;
-      Auth.login(token);
+
+      // const token = mutationResponse.data.register.token;
+      Auth.login(data.register.token);
       setResult(true);
     } catch (e) {
-      console.log(e);
+      console.error(e);
       setErr(true);
     }
     // handleClose();
@@ -61,7 +73,7 @@ export default function Login({ opendialog, closedialog }) {
               color: "#fff",
             }}
           >
-            Login
+            Register
           </DialogTitle>
           <DialogContent
             sx={{ "& .MuiTextField-root": { marginTop: 2 }, marginTop: 2 }}
@@ -69,8 +81,30 @@ export default function Login({ opendialog, closedialog }) {
             <TextField
               autoFocus
               margin="dense"
-              id="loginEmail"
-              name="loginEmail"
+              id="firstName"
+              name="firstName"
+              label="First Name"
+              type="firstName"
+              fullWidth
+              variant="outlined"
+              onChange={handleChange}
+              required
+            />
+            <TextField
+              margin="dense"
+              id="lastName"
+              name="lastName"
+              label="Last Name"
+              type="lastName"
+              fullWidth
+              variant="outlined"
+              onChange={handleChange}
+              required
+            />
+            <TextField
+              margin="dense"
+              id="regEmail"
+              name="regEmail"
               label="Email Address"
               type="email"
               fullWidth
@@ -80,8 +114,8 @@ export default function Login({ opendialog, closedialog }) {
             />
             <TextField
               margin="dense"
-              id="loginPassword"
-              name="loginPassword"
+              id="regPassword"
+              name="regPassword"
               label="Password"
               type="password"
               fullWidth
@@ -98,15 +132,16 @@ export default function Login({ opendialog, closedialog }) {
               fullWidth
               size="large"
             >
-              Login
+              Register
             </Button>
           </DialogActions>
         </Dialog>
+
         {err && (
           <Snackbar
             snackopen={err}
             snackclose={() => setErr(false)}
-            message={error.toString()}
+            message="Registration failed..."
           />
         )}
         {result && (
@@ -121,7 +156,7 @@ export default function Login({ opendialog, closedialog }) {
   );
 }
 
-Login.propTypes = {
+Register.propTypes = {
   openDialog: PropTypes.bool,
   closeDialog: PropTypes.any,
 };

@@ -1,14 +1,16 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
-
-const jobSchema = require("./Job");
-
+const Job = require("./Job");
 const userSchema = new Schema(
   {
-    username: {
+    firstName: {
       type: String,
       required: true,
-      unique: true,
+      trim: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
       trim: true,
     },
     email: {
@@ -22,7 +24,26 @@ const userSchema = new Schema(
       required: true,
       minlength: 5,
     },
-    savedJobs: [jobSchema],
+<<<<<<< HEAD
+    savedJobs: [Job.schema],
+    appliedJobs: [Job.schema]
+=======
+    savedJobs: [{
+      type: Schema.Types.ObjectId,
+      ref: "Job"
+    }],
+    appliedJobs: [{
+      type: Schema.Types.ObjectId,
+      ref: "Job"
+    }],
+    lengthOfSubscription: {
+      type: Number
+    },
+    premium: {
+      type: Schema.Types.ObjectId,
+      ref: "Premium"
+    }
+>>>>>>> develop
   },
   {
     toJSON: {
@@ -37,7 +58,6 @@ userSchema.pre("save", async function (next) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
-
   next();
 });
 
@@ -45,6 +65,14 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
+
+userSchema.virtual('savedJobsCount').get(function () {
+  return this.savedJobs.length;
+});
+
+userSchema.virtual('appliedJobsCount').get(function () {
+  return this.appliedJobs.length;
+});
 
 const User = model("User", userSchema);
 
