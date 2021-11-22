@@ -9,8 +9,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     margin: "2em",
     maxWidth: "100vw",
-
-    //className={classes.info}
   },
 }));
 
