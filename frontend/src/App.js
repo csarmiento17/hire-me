@@ -13,6 +13,7 @@ import ContactUs from "./containers/ContactUs/Loadable";
 import PageNotFound from "./components/NotFound";
 import SavedJobs from "./containers/Saved";
 import Success from "./containers/Success";
+import Profile from "./containers/Profile";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -41,6 +42,7 @@ function App() {
           <MenuAppBar />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/profile" component={Profile} />
             <Route exact path="/contact-us" component={ContactUs} />
             <Route exact path="/saved-jobs" component={SavedJobs} />
             <Route exact path="/success" component={Success} />
