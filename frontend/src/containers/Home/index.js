@@ -16,8 +16,8 @@ const Home = () => {
   const [searchJob, setSearchJob] = useState(null);
   const [searchedJobs, { data, loading }] = useLazyQuery(QUERY_SEARCHEDJOBS);
   const [err, setErr] = useState(false);
-  const { data:allJobData, loading:allJobsLoading  } = useQuery(QUERY_JOBS);
-  
+  const { data: allJobData, loading: allJobsLoading } = useQuery(QUERY_JOBS);
+
   const jobs = data?.searchedJobs || allJobData?.allJobs || [];
 
   const handleFindJobs = (e) => {
@@ -72,7 +72,7 @@ const Home = () => {
             <List jobs={jobs} childClicked={childClicked} />
           )}
         </Grid>
-
+        {/*
         <Grid
           item
           xs={12}
@@ -89,7 +89,7 @@ const Home = () => {
             <Map places={jobs} setChildClicked={setChildClicked} />
           )}
         </Grid>
-
+*/}
         {err && (
           <Snackbar
             snackopen={err}
