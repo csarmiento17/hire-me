@@ -4,9 +4,10 @@
   "description": "",
   "main": "backend/server.js",
   "scripts": {
-    "prestart": "cd backend && npm run seed",
-    "start": "node backend/server.js",
-    "dev": "concurrently \"cd backend && npm run watch\" \"cd frontend && npm start\"",
+  
+    "start": "if-env NODE_ENV=production && npm run start:prod ||  npm run start:dev",
+    "start:prod": "cd backend && npm start && npm seed",
+    "start:dev": "concurrently \"cd backend && npm run watch\" \"cd frontend && npm start\"",
     "install": "cd backend && npm i && cd ../frontend && npm i",
     "seed": "cd backend && npm run seed",
     "build": "cd frontend && npm run build"
