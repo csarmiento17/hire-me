@@ -15,6 +15,7 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
 import { REMOVESAVEDJOBS } from "../../utils/mutations";
+import Spinner from "../Spinner";
 
 export default function SavedJobs() {
   const { data, loading, refetch } = useQuery(QUERY_ME);
@@ -34,34 +35,28 @@ export default function SavedJobs() {
     async function refetchData() {
       await refetch();
     }
-    return () => {
-      refetchData();
-    };
+
+    refetchData();
   }, [refetch]);
 
   const handleRemoveJob = async (jobId) => {
     try {
-      const { data } = await removeSavedJobs({
+      await removeSavedJobs({
         variables: { savedJobId: jobId },
       });
- 
     } catch (err) {
       console.error(err);
     }
   };
+
   if (loading) {
-    return <h2>LOADING...</h2>;
+    return <Spinner />;
   }
+
   return (
     <>
       <Container>
-        <h2>
-          {userData.savedJobs?.length
-            ? `Viewing ${userData.savedJobs.length} saved ${
-                userData.savedJobs.length === 1 ? "job" : "jobs"
-              }:`
-            : "You have no saved jobs!"}
-        </h2>
+        <h2>{userData.savedJobs?.length ? null : "You have no saved jobs!"}</h2>
         <Container>
           {userData.savedJobs?.map((job) => {
             return (
@@ -82,8 +77,8 @@ export default function SavedJobs() {
                     {isReadMore
                       ? job.jobDescription.slice(0, 150)
                       : job.jobDescription}
-                    <IconButton size="small">
-                      <span onClick={toggleReadMore} style={{ color: "blue" }}>
+                    <IconButton size="small" onClick={toggleReadMore}>
+                      <span style={{ color: "blue" }}>
                         {isReadMore ? (
                           <ArrowDropDownIcon />
                         ) : (

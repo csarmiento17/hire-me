@@ -7,12 +7,20 @@ import {
   Button,
   IconButton,
   MenuItem,
+  ListItemIcon,
   Menu,
   Divider,
   Typography,
 } from "@mui/material";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import Verified from "@mui/icons-material/Verified";
+import {
+  AccountCircle,
+  Logout,
+  Favorite,
+  Verified,
+  AccountBox,
+  AddAlert,
+} from "@mui/icons-material";
+
 import { QUERY_ME } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 
@@ -81,11 +89,10 @@ export default function MenuAppBar() {
               alt="Logo"
               style={{ width: "50px", height: "50px" }}
             />
-          </IconButton>  
+          </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Hire Me
           </Typography>
-  
 
           {Auth.loggedIn() ? (
             <>
@@ -112,13 +119,39 @@ export default function MenuAppBar() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleProfile}>{premium && <Verified fontSize="small" />}Profile</MenuItem>
-                  <MenuItem onClick={handleSavedJobs}>My Jobs</MenuItem>
+                  <MenuItem onClick={handleProfile}>
+                    {premium ? (
+                      <ListItemIcon>
+                        <Verified fontSize="small" />
+                      </ListItemIcon>
+                    ) : (
+                      <ListItemIcon>
+                        <AccountBox fontSize="small" />
+                      </ListItemIcon>
+                    )}
+                    Profile
+                  </MenuItem>
+                  <MenuItem onClick={handleSavedJobs}>
+                    <ListItemIcon>
+                      <Favorite fontSize="small" />
+                    </ListItemIcon>
+                    My Jobs
+                  </MenuItem>
                   {!premium && (
-                    <MenuItem onClick={handleSubscribe}>Subscribe</MenuItem>
+                    <MenuItem onClick={handleSubscribe}>
+                      <ListItemIcon>
+                        <AddAlert fontSize="small" />
+                      </ListItemIcon>
+                      Subscribe
+                    </MenuItem>
                   )}
                   <Divider />
-                  <MenuItem onClick={logout}>Logout</MenuItem>
+                  <MenuItem onClick={logout}>
+                    <ListItemIcon>
+                      <Logout fontSize="small" />
+                    </ListItemIcon>
+                    Logout
+                  </MenuItem>
                 </Menu>
               </div>
 
@@ -140,27 +173,26 @@ export default function MenuAppBar() {
               <Button variant="h6" component="div" onClick={handleContactUs}>
                 Contact Us
               </Button>
-
-              {dlgLoginOpen && (
-                <Login
-                  opendialog={dlgLoginOpen}
-                  closedialog={() => setDlgLoginOpen(false)}
-                />
-              )}
-              {dlgRegisterOpen && (
-                <Register
-                  opendialog={dlgRegisterOpen}
-                  closedialog={() => setDlgRegisterOpen(false)}
-                />
-              )}
-              {snackOpen && (
-                <Snackbar
-                  snackopen={snackOpen}
-                  snackclose={() => setSnackOpen(false)}
-                  message="User successfully created!"
-                />
-              )}
             </>
+          )}
+          {dlgLoginOpen && (
+            <Login
+              opendialog={dlgLoginOpen}
+              closedialog={() => setDlgLoginOpen(false)}
+            />
+          )}
+          {dlgRegisterOpen && (
+            <Register
+              opendialog={dlgRegisterOpen}
+              closedialog={() => setDlgRegisterOpen(false)}
+            />
+          )}
+          {snackOpen && (
+            <Snackbar
+              snackopen={snackOpen}
+              snackclose={() => setSnackOpen(false)}
+              message="User successfully created!"
+            />
           )}
         </Toolbar>
       </AppBar>
