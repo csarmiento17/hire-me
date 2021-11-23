@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLazyQuery } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/client";
 import { Box, Button, TextField, Grid } from "@mui/material";
 
 //component dependencies
@@ -8,15 +9,16 @@ import Map from "../../components/Map";
 import Spinner from "../../components/Spinner";
 import Snackbar from "../../components/Snackbar";
 //queries and mutations
-import { QUERY_SEARCHEDJOBS } from "../../utils/queries";
+import { QUERY_SEARCHEDJOBS, QUERY_JOBS } from "../../utils/queries";
 
 const Home = () => {
   const [childClicked, setChildClicked] = useState(null);
   const [searchJob, setSearchJob] = useState(null);
   const [searchedJobs, { data, loading }] = useLazyQuery(QUERY_SEARCHEDJOBS);
   const [err, setErr] = useState(false);
-
-  const jobs = data?.searchedJobs || [];
+  const { data:allJobData, loading:allJobsLoading  } = useQuery(QUERY_JOBS);
+  
+  const jobs = data?.searchedJobs || allJobData?.allJobs || [];
 
   const handleFindJobs = (e) => {
     e.preventDefault();

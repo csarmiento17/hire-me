@@ -22,7 +22,8 @@ export default function JobResult({ job, selected, refProp }) {
   const [isReadMore, setIsReadMore] = useState(true);
 
   const [addToAppliedJobs, { error }] = useMutation(ADDTOAPPLIEDJOBS);
-  const [disable, setDisable] = useState(false);
+  const [disableApply, setDisableApply] = useState(false);
+  const [disableSave, setDisableSave] = useState(false);
 
   const toggleReadMore = () => {
     setIsReadMore(!isReadMore);
@@ -32,10 +33,18 @@ export default function JobResult({ job, selected, refProp }) {
     refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   const handleApplyJob = async (jobId) => {
+    // get token
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      setErr(true);
+      return false;
+    }
     try {
       await addToAppliedJobs({
         variables: { appliedJobId: jobId },
       });
+      setDisableApply(true)
     } catch (err) {
       console.error(err);
     }
@@ -51,12 +60,12 @@ export default function JobResult({ job, selected, refProp }) {
     }
 
     try {
-      const { data } = await addToSavedJobs({
+      await addToSavedJobs({
         variables: { savedJobId: jobId },
       });
-      console.log("data-addToSaved", data);
+      setDisableSave(true)      
     } catch (err) {
-      console.log("save job failed", err);
+      console.err("save job failed", err);
     }
   };
 
@@ -86,8 +95,8 @@ export default function JobResult({ job, selected, refProp }) {
               fullWidth
               variant="outlined"
               style={{ marginBottom: 5 }}
-              disabled={disable}
-              onClick={() => handleApplyJob(job._id) && setDisable(true)}
+              disabled={disableApply}
+              onClick={() => handleApplyJob(job._id)}
             >
               Apply
             </Button>
@@ -96,6 +105,7 @@ export default function JobResult({ job, selected, refProp }) {
             <Button
               fullWidth
               variant="outlined"
+              disabled={disableSave}
               onClick={() => handleSaveJob(job._id)}
             >
               Save Job
@@ -108,7 +118,7 @@ export default function JobResult({ job, selected, refProp }) {
         <Snackbar
           snackopen={err}
           snackclose={() => setErr(false)}
-          message="Please log in to save this job!"
+          message="Please log in to proceed!"
         />
       )}
     </Card>
