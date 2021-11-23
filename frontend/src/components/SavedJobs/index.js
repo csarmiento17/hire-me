@@ -44,7 +44,7 @@ export default function SavedJobs() {
       const { data } = await removeSavedJobs({
         variables: { savedJobId: jobId },
       });
-      console.log("data-removejob", data);
+ 
     } catch (err) {
       console.error(err);
     }
