@@ -11,8 +11,8 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import ContactUs from "./containers/ContactUs/Loadable";
 import PageNotFound from "./components/NotFound";
-import SavedJobs from "./containers/Saved";
-import Success from "./containers/Success";
+import SavedJobs from "./containers/Saved/Loadable";
+import Success from "./containers/Success/Loadable";
 import Profile from "./containers/Profile";
 
 const httpLink = createHttpLink({

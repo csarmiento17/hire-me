@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLazyQuery } from "@apollo/react-hooks";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Box, Button, TextField, Grid } from "@mui/material";
 
 //component dependencies
@@ -16,8 +16,8 @@ const Home = () => {
   const [searchJob, setSearchJob] = useState(null);
   const [searchedJobs, { data, loading }] = useLazyQuery(QUERY_SEARCHEDJOBS);
   const [err, setErr] = useState(false);
-  const { data:allJobData, loading:allJobsLoading  } = useQuery(QUERY_JOBS);
-  
+  const { data: allJobData, loading: allJobsLoading } = useQuery(QUERY_JOBS);
+
   const jobs = data?.searchedJobs || allJobData?.allJobs || [];
 
   const handleFindJobs = (e) => {
