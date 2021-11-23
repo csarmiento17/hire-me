@@ -1,7 +1,7 @@
 node_modules
 node_modules/
-client/node_modules
-client/build
-server/node_modules
-server/build
+frontend/node_modules
+frontend/build
+backend/node_modules
+backend/build
 .env

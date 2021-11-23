@@ -24,6 +24,7 @@ const premiumSchema = new Schema(
 
 premiumSchema.virtual('endOfSubscription')
   .get(function() { 
+    console.log(dateFormat(endOfSubs(this.lengthOfSubscription)));
     return dateFormat(endOfSubs(this.lengthOfSubscription)); 
   });
 
