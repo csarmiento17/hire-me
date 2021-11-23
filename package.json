@@ -16,9 +16,5 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.1.0"
-  },
-  "dependencies": {
-    "express": "^4.17.1",
-    "react-icons": "^4.3.1"
   }
 }
