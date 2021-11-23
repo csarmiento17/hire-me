@@ -120,15 +120,16 @@ export default function MenuAppBar() {
                   onClose={handleClose}
                 >
                   <MenuItem onClick={handleProfile}>
-                    <ListItemIcon>
-                      <AccountBox fontSize="small" />
-                    </ListItemIcon>
-                    Profile
-                    {premium && (
+                    {premium ? (
                       <ListItemIcon>
                         <Verified fontSize="small" />
                       </ListItemIcon>
+                    ) : (
+                      <ListItemIcon>
+                        <AccountBox fontSize="small" />
+                      </ListItemIcon>
                     )}
+                    Profile
                   </MenuItem>
                   <MenuItem onClick={handleSavedJobs}>
                     <ListItemIcon>
