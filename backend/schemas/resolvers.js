@@ -52,18 +52,18 @@ const resolvers = {
       ];
 
       // need to use dynamic URL: context.headers.referer
-      const url = new URL("http://localhost:3000").origin;
+      const url = new URL(context.headers.referer).origin;
       const line_items = [];
 
       // generate product id
       const product = await stripe.products.create({
-        name: products[productNum].name,
+        name: products[productNum - 1].name,
       });
 
       // generate price id
       const price = await stripe.prices.create({
         product: product.id,
-        unit_amount: products[productNum].price * 100,
+        unit_amount: products[productNum - 1].price * 100,
         currency: "cad",
       });
 

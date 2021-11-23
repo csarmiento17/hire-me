@@ -82,9 +82,9 @@ export default function Subscribe({ opendialog, closedialog }) {
                 name="row-radio-buttons-group" 
                 onChange={handleChange}
               >
-                <FormControlLabel value="0" control={<Radio />} label="1 Month" />
-                <FormControlLabel value="1" control={<Radio />} label="6 Months" />
-                <FormControlLabel value="2" control={<Radio />} label="1 Year" />
+                <FormControlLabel value="1" control={<Radio />} label="1 Month" />
+                <FormControlLabel value="2" control={<Radio />} label="6 Months" />
+                <FormControlLabel value="3" control={<Radio />} label="1 Year" />
               </RadioGroup>
             </FormControl>
           </DialogContent>
