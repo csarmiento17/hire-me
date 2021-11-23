@@ -4,7 +4,6 @@
   "description": "",
   "main": "backend/server.js",
   "scripts": {
-  
     "start": "if-env NODE_ENV=production && npm run start:prod ||  npm run start:dev",
     "start:prod": "cd backend && npm start && npm seed",
     "start:dev": "concurrently \"cd backend && npm run watch\" \"cd frontend && npm start\"",
@@ -17,5 +16,8 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.1.0"
+  },
+  "dependencies": {
+    "if-env": "^1.0.4"
   }
 }
