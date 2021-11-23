@@ -16,11 +16,8 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.1.0"
-<<<<<<< HEAD
-=======
   },
   "dependencies": {
     "if-env": "^1.0.4"
->>>>>>> develop
   }
 }
