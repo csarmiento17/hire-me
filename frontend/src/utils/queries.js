@@ -70,7 +70,7 @@ export const QUERY_SEARCHEDJOBS = gql`
 `;
 
 export const QUERY_JOBS = gql`
-  {
+query allJobs {
     allJobs {
       _id
       title
