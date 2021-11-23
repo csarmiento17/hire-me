@@ -3,7 +3,7 @@ import { Card, CardContent, Typography, Chip, Container } from "@mui/material";
 
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
-// import { useLazyQuery } from "@apollo/react-hooks";
+import Spinner from "../Spinner";
 
 export default function AppliedJobs() {
   const { data, loading, refetch } = useQuery(QUERY_ME);
@@ -23,18 +23,14 @@ export default function AppliedJobs() {
   }, [refetch]);
 
   if (loading) {
-    return <h2>LOADING...</h2>;
+    return <Spinner />;
   }
 
   return (
     <>
       <Container>
         <h2>
-          {userData.appliedJobs?.length
-            ? `Viewing ${userData.appliedJobs.length} applied ${
-                userData.appliedJobs.length === 1 ? "job" : "jobs"
-              }:`
-            : "You have no applied jobs!"}
+          {userData.appliedJobs?.length ? null : "You have no applied jobs!"}
         </h2>
         <Container>
           {userData.appliedJobs?.map((job) => {
