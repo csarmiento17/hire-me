@@ -18,9 +18,13 @@ export default function UserInfo() {
     data?.me?.savedJobs && setUserData(data?.me);
   }, [data, loading]);
 
-  useEffect(async () => {
-    const result = await refetch();
-  }, []);
+  useEffect(() => {
+    async function refetchData() {
+      await refetch();
+    }
+
+    refetchData();
+  }, [refetch]);
 
   if (loading) {
     return <Spinner />;
@@ -66,11 +70,11 @@ export default function UserInfo() {
             </Typography>
             <Divider />
             <Typography variant="subtitle1" component="div" sx={{ margin: 1 }}>
-              Length of Subscription:
+              End of Subscription:
               <Chip
                 label={
-                  userData?.lengthtOfSubscription
-                    ? userData?.lengthtOfSubscription
+                  userData?.premium?.endOfSubscription
+                    ? userData?.premium?.endOfSubscription
                     : "No subscription"
                 }
                 variant="outlined"

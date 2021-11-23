@@ -24,7 +24,7 @@ const List = ({ jobs, childClicked }) => {
               justifyContent: "center",
             }}
           >
-            Loading
+            No results found
           </Typography>
         </Paper>
       ) : (

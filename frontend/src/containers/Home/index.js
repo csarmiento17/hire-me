@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLazyQuery } from "@apollo/react-hooks";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Box, Button, TextField, Grid } from "@mui/material";
 
 //component dependencies
@@ -72,7 +72,7 @@ const Home = () => {
             <List jobs={jobs} childClicked={childClicked} />
           )}
         </Grid>
-        {/*
+
         <Grid
           item
           xs={12}
@@ -89,7 +89,7 @@ const Home = () => {
             <Map places={jobs} setChildClicked={setChildClicked} />
           )}
         </Grid>
-*/}
+
         {err && (
           <Snackbar
             snackopen={err}

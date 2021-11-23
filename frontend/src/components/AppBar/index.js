@@ -172,27 +172,26 @@ export default function MenuAppBar() {
               <Button variant="h6" component="div" onClick={handleContactUs}>
                 Contact Us
               </Button>
-
-              {dlgLoginOpen && (
-                <Login
-                  opendialog={dlgLoginOpen}
-                  closedialog={() => setDlgLoginOpen(false)}
-                />
-              )}
-              {dlgRegisterOpen && (
-                <Register
-                  opendialog={dlgRegisterOpen}
-                  closedialog={() => setDlgRegisterOpen(false)}
-                />
-              )}
-              {snackOpen && (
-                <Snackbar
-                  snackopen={snackOpen}
-                  snackclose={() => setSnackOpen(false)}
-                  message="User successfully created!"
-                />
-              )}
             </>
+          )}
+          {dlgLoginOpen && (
+            <Login
+              opendialog={dlgLoginOpen}
+              closedialog={() => setDlgLoginOpen(false)}
+            />
+          )}
+          {dlgRegisterOpen && (
+            <Register
+              opendialog={dlgRegisterOpen}
+              closedialog={() => setDlgRegisterOpen(false)}
+            />
+          )}
+          {snackOpen && (
+            <Snackbar
+              snackopen={snackOpen}
+              snackclose={() => setSnackOpen(false)}
+              message="User successfully created!"
+            />
           )}
         </Toolbar>
       </AppBar>

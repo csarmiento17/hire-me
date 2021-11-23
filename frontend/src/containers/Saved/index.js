@@ -25,9 +25,14 @@ export default function IconLabelTabs() {
     data?.me?.savedJobs && setUserData(data?.me);
   }, [data, loading]);
 
-  useEffect(async () => {
-    await refetch();
-  }, []);
+  useEffect(() => {
+    async function refetchData() {
+      await refetch();
+    }
+    return () => {
+      refetchData();
+    };
+  }, [refetch]);
 
   const handleChange = (e, newValue) => {
     e.preventDefault();
@@ -38,7 +43,7 @@ export default function IconLabelTabs() {
     return <Spinner />;
   }
   return (
-    <Box className="container">
+    <Box className="container" sx={{ marginTop: 2 }}>
       <Tabs
         value={tab}
         onChange={handleChange}

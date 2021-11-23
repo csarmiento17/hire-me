@@ -21,7 +21,7 @@ export default function JobResult({ job, selected, refProp }) {
   const [err, setErr] = useState(false);
   const [isReadMore, setIsReadMore] = useState(true);
 
-  const [addToAppliedJobs, { error }] = useMutation(ADDTOAPPLIEDJOBS);
+  const [addToAppliedJobs] = useMutation(ADDTOAPPLIEDJOBS);
   const [disableApply, setDisableApply] = useState(false);
   const [disableSave, setDisableSave] = useState(false);
 
@@ -44,7 +44,7 @@ export default function JobResult({ job, selected, refProp }) {
       await addToAppliedJobs({
         variables: { appliedJobId: jobId },
       });
-      setDisableApply(true)
+      setDisableApply(true);
     } catch (err) {
       console.error(err);
     }
@@ -63,7 +63,7 @@ export default function JobResult({ job, selected, refProp }) {
       await addToSavedJobs({
         variables: { savedJobId: jobId },
       });
-      setDisableSave(true)      
+      setDisableSave(true);
     } catch (err) {
       console.err("save job failed", err);
     }
@@ -81,8 +81,12 @@ export default function JobResult({ job, selected, refProp }) {
         <Chip label={job.jobTypes} variant="outlined"></Chip>
         <Typography variant="subtitle2" component="div" sx={{ marginTop: 2 }}>
           {isReadMore ? job.jobDescription.slice(0, 150) : job.jobDescription}
-          <IconButton size="small">
-            <span onClick={toggleReadMore} style={{ color: "blue" }}>
+          <IconButton
+            size="small"
+            onClick={toggleReadMore}
+            sx={{ padding: 0, margin: 0 }}
+          >
+            <span style={{ color: "blue" }}>
               {isReadMore ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
             </span>
           </IconButton>

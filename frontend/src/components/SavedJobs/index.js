@@ -35,14 +35,13 @@ export default function SavedJobs() {
     async function refetchData() {
       await refetch();
     }
-    return () => {
-      refetchData();
-    };
+
+    refetchData();
   }, [refetch]);
 
   const handleRemoveJob = async (jobId) => {
     try {
-      const { data } = await removeSavedJobs({
+      await removeSavedJobs({
         variables: { savedJobId: jobId },
       });
     } catch (err) {
@@ -78,8 +77,8 @@ export default function SavedJobs() {
                     {isReadMore
                       ? job.jobDescription.slice(0, 150)
                       : job.jobDescription}
-                    <IconButton size="small">
-                      <span onClick={toggleReadMore} style={{ color: "blue" }}>
+                    <IconButton size="small" onClick={toggleReadMore}>
+                      <span style={{ color: "blue" }}>
                         {isReadMore ? (
                           <ArrowDropDownIcon />
                         ) : (
