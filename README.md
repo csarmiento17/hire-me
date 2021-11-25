@@ -55,9 +55,9 @@ JWT
 
 
 ## Screenshot
-![HOME](./home.PNG)
-![MYJOBS](./My Jobs.PNG)
-![ContactUs](./Contact Us.PNG)
+![HOME](./home.png)
+![MYJOBS](./My Jobs.png)
+![ContactUs](./Contact Us.png)
 
 ## Links
 
