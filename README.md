@@ -1,4 +1,4 @@
-# HireMe Group 4, Project 3
+# HireMe
 
 ## Table of Contents
 
@@ -11,9 +11,9 @@
 
 ## Project Description
 
-This application is a job search engineer equipped with the powerful Google Map​ gives job seekers direct access to the location of jobs they are searching for​
+A Job searching website built with MERN stack. It is equipped with the powerful Google Map which gives job seekers direct access to the location of jobs they are searching for.
 
-As a client, I can register myself into the portal. Then I can login into the portal and search for jobs based on my location. I can save jobs and also apply to jobs. Furthermore these jobs would be displayed on the My Jobs page where you can see the number of applied and saved jobs. You have the ability to remove saved jobs as well.
+As a user, I can register myself into the portal. Then I can login into the portal and search for jobs based on my location. I can save jobs and also apply to jobs. Furthermore these jobs would be displayed on the My Jobs page where you can see the number of applied and saved jobs. You have the ability to remove saved jobs as well.
 
 Th application has been deployed on Heroku.
 
